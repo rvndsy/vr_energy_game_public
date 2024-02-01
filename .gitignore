@@ -70,3 +70,9 @@ crashlytics-build.properties
 # Temporary auto-generated Android Assets
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
+
+
+# Added by myself:
+# UltimateXR directory exclusion due to large filesize of UnityXR imported package
+/[Aa]ssets/[Uu]ltimateXR/*
+/[Aa]ssets/[Uu]ltimateXR.meta
