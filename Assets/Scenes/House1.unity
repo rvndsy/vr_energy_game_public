@@ -1286,7 +1286,7 @@ GameObject:
   - component: {fileID: 231586650}
   - component: {fileID: 231586649}
   m_Layer: 5
-  m_Name: Button
+  m_Name: SubtractButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2140,6 +2140,8 @@ GameObject:
   - component: {fileID: 399335526}
   - component: {fileID: 399335530}
   - component: {fileID: 399335529}
+  - component: {fileID: 399335532}
+  - component: {fileID: 399335531}
   m_Layer: 0
   m_Name: Switch
   m_TagString: Untagged
@@ -2299,6 +2301,68 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &399335531
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 399335524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4edbb5eee02f6f41a8193c5b29c0421, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _targetTransform: {fileID: 399335525}
+  _buttonLocalUpAxis: {x: 0, y: 1, z: 0}
+  _pressedDegrees: 2
+--- !u!114 &399335532
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 399335524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88631d58f15603847b5bde7ae5865d1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates: []
+  _pressAndHoldDuration: 1
+  _feedbackOnPress:
+    _hapticClip:
+      _clip: {fileID: 0}
+      _clipAmplitude: 1
+      _hapticMode: 1
+      _fallbackClipType: 6
+      _fallbackAmplitude: 0.2
+      _fallbackDurationSeconds: -1
+    _audioClip: {fileID: 0}
+    _audioVolume: 1
+    _useAudio3D: 1
+  _feedbackOnRelease:
+    _hapticClip:
+      _clip: {fileID: 0}
+      _clipAmplitude: 1
+      _hapticMode: 1
+      _fallbackClipType: 0
+      _fallbackAmplitude: 1
+      _fallbackDurationSeconds: -1
+    _audioClip: {fileID: 0}
+    _audioVolume: 1
+    _useAudio3D: 1
+  _feedbackOnClick:
+    _hapticClip:
+      _clip: {fileID: 0}
+      _clipAmplitude: 1
+      _hapticMode: 1
+      _fallbackClipType: 6
+      _fallbackAmplitude: 0.6
+      _fallbackDurationSeconds: -1
+    _audioClip: {fileID: 0}
+    _audioVolume: 1
+    _useAudio3D: 1
 --- !u!1 &441968478
 GameObject:
   m_ObjectHideFlags: 0
@@ -2331,6 +2395,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1824447359}
+  - {fileID: 681149391}
   m_Father: {fileID: 1127325358}
   m_LocalEulerAnglesHint: {x: 0, y: -180, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -40597,7 +40662,7 @@ GameObject:
   - component: {fileID: 681149393}
   - component: {fileID: 681149392}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: Display
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -40611,15 +40676,15 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 681149390}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.00000017881385}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1824447359}
+  m_Father: {fileID: 441968479}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.00000019371517, y: 0.07}
+  m_AnchoredPosition: {x: 0, y: 0.07}
   m_SizeDelta: {x: 0.07, y: 0.05}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &681149392
@@ -43526,6 +43591,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1914447160}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: aa542ce8ee9f0a949b16c7a5f7856136,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1914447161}
     - targetCorrespondingSourceObject: {fileID: -7036575541290209007, guid: aa542ce8ee9f0a949b16c7a5f7856136,
         type: 3}
       insertIndex: -1
@@ -45423,7 +45492,7 @@ GameObject:
   - component: {fileID: 1454294261}
   - component: {fileID: 1454294260}
   m_Layer: 5
-  m_Name: Button
+  m_Name: AddButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -45844,7 +45913,7 @@ GameObject:
   - component: {fileID: 1472843823}
   - component: {fileID: 1472843822}
   m_Layer: 5
-  m_Name: Button
+  m_Name: GoButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -47984,6 +48053,7 @@ GameObject:
   - component: {fileID: 1824447359}
   - component: {fileID: 1824447361}
   - component: {fileID: 1824447360}
+  - component: {fileID: 1824447362}
   m_Layer: 5
   m_Name: Panel
   m_TagString: Untagged
@@ -48006,7 +48076,6 @@ RectTransform:
   - {fileID: 1454294259}
   - {fileID: 231586648}
   - {fileID: 1472843821}
-  - {fileID: 681149391}
   m_Father: {fileID: 441968479}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -48052,6 +48121,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1824447358}
   m_CullTransparentMesh: 1
+--- !u!114 &1824447362
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1824447358}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bec0c91984e717342a43c0e0cd1de72c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  addButton: {fileID: 0}
+  subtractButton: {fileID: 0}
+  goButton: {fileID: 0}
+  timerDisplayText: {fileID: 0}
+  maxTimeInSeconds: 0
+  timerInterval: 10
 --- !u!1 &1829102252
 GameObject:
   m_ObjectHideFlags: 0
@@ -49222,6 +49309,24 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 5886725122310526079, guid: aa542ce8ee9f0a949b16c7a5f7856136, type: 3}
+--- !u!114 &1914447161
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1127325362}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bec0c91984e717342a43c0e0cd1de72c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  addButton: {fileID: 1454294260}
+  subtractButton: {fileID: 231586649}
+  goButton: {fileID: 1472843822}
+  timerDisplayText: {fileID: 681149392}
+  maxTimeInSeconds: 120
+  timerInterval: 10
 --- !u!1 &1948168366
 GameObject:
   m_ObjectHideFlags: 0
