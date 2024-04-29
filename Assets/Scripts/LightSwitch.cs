@@ -20,7 +20,8 @@ public class LightSwitch : MonoBehaviour {
         else switchPivot.transform.rotation = Quaternion.Euler(angleOff, 0f, 0f);
     }
 
-    void Update() {
+    void Update()
+    {
         int currentTime = (int)Time.time;
         if (currentTime % 2 == 1 && state) setSwitchState(false);
         else if (currentTime % 2 == 0) setSwitchState(true);
