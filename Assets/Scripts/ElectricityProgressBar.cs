@@ -6,6 +6,9 @@ using UnityEngine.UI;
 using static UnityEngine.Rendering.DebugUI;
 
 public class ElectricityProgressBar : MonoBehaviour {
+
+
+
     public Slider slider;
     public TextMeshProUGUI valueText;
     float energyConsumed = 0;
