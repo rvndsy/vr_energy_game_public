@@ -4,13 +4,13 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MicrowaveLogic : MonoBehaviour
-{
+public class MicrowaveLogic : EnergyConsumer {
+
     [Header("Required Microwave Attributes")]
     [SerializeField] Button addButton;
     [SerializeField] Button subtractButton;
     [SerializeField] Button goButton;
-    [SerializeField] TextMeshProUGUI timerDisplayText;
+    [SerializeField] TMP_Text timerDisplayText;
     [SerializeField] int maxTimeInSeconds = 120;
     [SerializeField] int timerInterval = 10;
     [Header("Other Microwave Attributes")]
@@ -20,9 +20,10 @@ public class MicrowaveLogic : MonoBehaviour
     int timerTimeInSeconds = 0;
     bool isTimerTicking = false;
 
+    // REMOVE after making the inheritance work
     // Energy consumption specific values:
-    public bool isTurnedOn = true;
-    public float powerLevel = 0; // keep this value between 0 and 1. value of 1 indicates that maxPowerConsumption == powerConsumption
+    // public bool isTurnedOn = true;
+    // public float powerLevel = 0; // keep this value between 0 and 1. value of 1 indicates that maxPowerConsumption == powerConsumption
 
     // TODO:
     // [?] Cannot execute Go whilst the door is open
@@ -42,7 +43,6 @@ public class MicrowaveLogic : MonoBehaviour
         isTimerTicking = false;
         timerTimeInSeconds = 0;
         timerDisplayText.text = "00:00";
-        // CancelInvoke("TickTimerDown");
     }
 
     void turnOff() {
@@ -56,8 +56,8 @@ public class MicrowaveLogic : MonoBehaviour
     }
 
     void OnSubtractButtonPress(int value) {
-        if (isTimerTicking) return;
         Debug.Log("Microwave: Subtract Button pressed!");
+        if (isTimerTicking) return;
         int newTimerValue = timerTimeInSeconds - timerInterval;
         if (newTimerValue >= minTimeInSeconds) {
             timerTimeInSeconds = newTimerValue;
@@ -66,8 +66,8 @@ public class MicrowaveLogic : MonoBehaviour
     }
 
     void OnAddButtonPress(int value) {
-        if (isTimerTicking) return;
         Debug.Log("Microwave: Add Button pressed!");
+        if (isTimerTicking) return;
         int newTimerValue = timerTimeInSeconds + timerInterval;
         if (newTimerValue <= maxTimeInSeconds) {
             timerTimeInSeconds = newTimerValue;
@@ -79,40 +79,27 @@ public class MicrowaveLogic : MonoBehaviour
         Debug.Log("Microwave: Go Button pressed!");
         if (!isTimerTicking) {
             isTimerTicking = true;
-            // InvokeRepeating("TickTimerDown", 0.5f, 1.0f);
             StartCoroutine(StartTickTimerDown());
         }
     }
 
-/*    void TickTimerDown() {
-        if (timerValue > minTimeInSeconds && isTimerTicking) {
-            timerValue--;
-            UpdateTimerDisplay();
-            Debug.Log("Microwave: Timer says - " + timerDisplayText.text);
-        } else {
-            finishedAudio.Play(0);
-            ResetTimer();
-            // sound effects and whatnot?
-        }
-    }*/
-
-    IEnumerator StartTickTimerDown() { // Coroutine
+    IEnumerator StartTickTimerDown() { // coroutine
         if (turnedOnAudio.loop == false) Debug.Log("(Warning) Microwave: Microwave turned on audio is not looped!");
         turnedOnAudio.Play();
 
-        powerLevel = 1;
+        setPowerLevel(1);
 
         while (timerTimeInSeconds > minTimeInSeconds && isTimerTicking) {
             timerTimeInSeconds--;
             UpdateTimerDisplay();
             Debug.Log("Microwave: Timer says - " + timerDisplayText.text);
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(1f); //every 1 second
         }
 
         turnedOnAudio.Stop();
         finishedAudio.Play(0);
 
-        powerLevel = 0;
+        setPowerLevel(0);
 
         ResetTimer();
     }
