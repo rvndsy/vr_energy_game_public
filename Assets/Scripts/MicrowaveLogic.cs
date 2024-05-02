@@ -21,11 +21,8 @@ public class MicrowaveLogic : MonoBehaviour
     bool isTimerTicking = false;
 
     // Energy consumption specific values:
-    bool isTurnedOn = true;
-    float powerLevel = 0; // keep this value between 0 and 1. value of 1 indicates that maxPowerConsumption == powerConsumption;
-    float maxPowerConsumption = 0;
-    float passiveEnergyConsumption = 0; // used when isTurnedOn == true && powerLevel == 0
-    float powerConsumption = 0; // this is the actual consumption in Watts (W)
+    public bool isTurnedOn = true;
+    public float powerLevel = 0; // keep this value between 0 and 1. value of 1 indicates that maxPowerConsumption == powerConsumption
 
     // TODO:
     // [?] Cannot execute Go whilst the door is open
@@ -83,7 +80,7 @@ public class MicrowaveLogic : MonoBehaviour
         if (!isTimerTicking) {
             isTimerTicking = true;
             // InvokeRepeating("TickTimerDown", 0.5f, 1.0f);
-            StartCoroutine(TickTimerDown());
+            StartCoroutine(StartTickTimerDown());
         }
     }
 
@@ -99,19 +96,26 @@ public class MicrowaveLogic : MonoBehaviour
         }
     }*/
 
-    IEnumerator TickTimerDown() { // Coroutine
+    IEnumerator StartTickTimerDown() { // Coroutine
         if (turnedOnAudio.loop == false) Debug.Log("(Warning) Microwave: Microwave turned on audio is not looped!");
         turnedOnAudio.Play();
+
+        powerLevel = 1;
+
         while (timerTimeInSeconds > minTimeInSeconds && isTimerTicking) {
             timerTimeInSeconds--;
             UpdateTimerDisplay();
             Debug.Log("Microwave: Timer says - " + timerDisplayText.text);
             yield return new WaitForSeconds(1f);
         }
+
         turnedOnAudio.Stop();
-            finishedAudio.Play(0);
-            ResetTimer();
-        }
+        finishedAudio.Play(0);
+
+        powerLevel = 0;
+
+        ResetTimer();
+    }
 
     void Start() {
         timerDisplayText.text = "00:00";
@@ -119,8 +123,5 @@ public class MicrowaveLogic : MonoBehaviour
         addButton.onClick.AddListener(() => OnAddButtonPress(timerInterval));
         subtractButton.onClick.AddListener(() => OnSubtractButtonPress(timerInterval));
         goButton.onClick.AddListener(OnGoButtonPress);
-    }
-
-    void Update() {
     }
 }

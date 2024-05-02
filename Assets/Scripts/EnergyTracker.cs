@@ -2,18 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ElectricityTracker : MonoBehaviour
+public class EnergyTracker : MonoBehaviour
 {
     [SerializeField] GameObject[] electricityConsumers;
 
-    void Start()
-    {
+    void Start() {
         
     }
 
-    // Update is called once per frame
-    void Update()
-    {
+    void Update() {
         
     }
 }
