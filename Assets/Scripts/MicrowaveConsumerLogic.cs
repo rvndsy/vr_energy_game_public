@@ -1,10 +1,9 @@
 using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MicrowaveLogic : EnergyConsumer {
+public class MicrowaveConsumerLogic : EnergyConsumer {
 
     [Header("Required Microwave Attributes")]
     [SerializeField] Button addButton;
@@ -45,17 +44,18 @@ public class MicrowaveLogic : EnergyConsumer {
         timerDisplayText.text = "00:00";
     }
 
-    void turnOff() {
+
+    /*void TurnOff() {
         isTurnedOn = false;
         timerDisplayText.text = "";
-    }
+    }*/
 
-    void turnOn() {
+/*    void TurnOn() {
         isTurnedOn = true;
         ResetTimer();
-    }
+    }*/
 
-    void OnSubtractButtonPress(int value) {
+    void OnSubtractButtonPress() {
         Debug.Log("Microwave: Subtract Button pressed!");
         if (isTimerTicking) return;
         int newTimerValue = timerTimeInSeconds - timerInterval;
@@ -65,7 +65,7 @@ public class MicrowaveLogic : EnergyConsumer {
         }
     }
 
-    void OnAddButtonPress(int value) {
+    void OnAddButtonPress() {
         Debug.Log("Microwave: Add Button pressed!");
         if (isTimerTicking) return;
         int newTimerValue = timerTimeInSeconds + timerInterval;
@@ -87,7 +87,7 @@ public class MicrowaveLogic : EnergyConsumer {
         if (turnedOnAudio.loop == false) Debug.Log("(Warning) Microwave: Microwave turned on audio is not looped!");
         turnedOnAudio.Play();
 
-        setPowerLevel(1);
+        SetPowerLevel(1);
 
         while (timerTimeInSeconds > minTimeInSeconds && isTimerTicking) {
             timerTimeInSeconds--;
@@ -99,16 +99,32 @@ public class MicrowaveLogic : EnergyConsumer {
         turnedOnAudio.Stop();
         finishedAudio.Play(0);
 
-        setPowerLevel(0);
+        SetPowerLevel(0);
 
         ResetTimer();
     }
 
     void Start() {
-        timerDisplayText.text = "00:00";
+        timerDisplayText.SetText("00:00");
+
+        Button[] buttonList = GetComponents<Button>();
+        foreach (Button button in buttonList) {
+            switch (button.name) {
+                case "AddButton":
+                    addButton = button;
+                    break;
+                case "SubtractButton":
+                    subtractButton = button;
+                    break;
+                case "GoButton":
+                    goButton = button;
+                    break;
+            }
+        }
+
         // button event listeners
-        addButton.onClick.AddListener(() => OnAddButtonPress(timerInterval));
-        subtractButton.onClick.AddListener(() => OnSubtractButtonPress(timerInterval));
+        addButton.onClick.AddListener(OnAddButtonPress);
+        subtractButton.onClick.AddListener(OnSubtractButtonPress);
         goButton.onClick.AddListener(OnGoButtonPress);
     }
 }

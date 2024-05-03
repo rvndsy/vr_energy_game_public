@@ -17,14 +17,18 @@ public class EnergyConsumer : MonoBehaviour {
     public float powerConsumption = 0;           // this is the actual consumption in Watts (W)
     public float totalConsumedEnergyInKilowattHours = 0;
 
-    protected void setPowerLevel(float val) {
+    protected void SetPowerLevel(float val) {
         powerLevel = val;
     }
 
-    protected void turnOn() {}
-    protected void turnOff() {}
+    protected void TurnOn() {
+        this.isTurnedOn = true;
+    }
+    protected void TurnOff() {
+        this.isTurnedOn = false;
+    }
 
-    float convertJouleToKWH(float energy) { // 1 watt = 1 joule per second
+    float ConvertJouleToKWH(float energy) { // 1 watt = 1 joule per second
         return energy / 3600000;
     }
 
@@ -37,12 +41,12 @@ public class EnergyConsumer : MonoBehaviour {
         if (lastPowerLevel != powerLevel && isTurnedOn) {
             lastPowerLevel = powerLevel;
             powerConsumption = powerLevel * maxPowerConsumption;
-            totalConsumedEnergyInKilowattHours += convertJouleToKWH(powerConsumption / 50);
+            totalConsumedEnergyInKilowattHours += ConvertJouleToKWH(powerConsumption / 50);
         } else if (!isTurnedOn) {
             powerLevel = 0;
             powerConsumption = 0;
         }
-        Debug.Log("Consumer: Total Energy Consumed = " + powerConsumption);
+/*        Debug.Log("Consumer: Total Energy Consumed = " + powerConsumption);
         Debug.Log("Consumer: Power Consumption = " + powerConsumption);
-    }
+*/    }
 }

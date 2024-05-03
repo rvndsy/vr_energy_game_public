@@ -5,18 +5,21 @@ using UnityEngine;
 using UnityEngine.UI;
 using static UnityEngine.Rendering.DebugUI;
 
-public class ElectricityProgressBar : MonoBehaviour {
-      
-    public Slider slider;
-    public TextMeshProUGUI valueText;
-    float energyConsumed = 0;
+public class EnergyVisualizerUI : MonoBehaviour {
+
+    private Slider slider;
+    private TextMeshProUGUI valueText;
+    private EnergyTracker energyTracker;
+
+    private void Awake() {
+        //if 
+        energyTracker = GetComponent<EnergyTracker>();
+    }
 
     public void OnSliderChanged(float value) {
         valueText.text = value.ToString() + "kWh";
     }
 
     public void UpdateProgress() {
-        energyConsumed++;
-        slider.value = energyConsumed;
     }
 }
