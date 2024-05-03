@@ -6,15 +6,13 @@ using UnityEngine.UI;
 public class MicrowaveConsumerLogic : EnergyConsumer {
 
     [Header("Required Microwave Attributes")]
-    [SerializeField] Button addButton;
-    [SerializeField] Button subtractButton;
-    [SerializeField] Button goButton;
-    [SerializeField] TMP_Text timerDisplayText;
     [SerializeField] int maxTimeInSeconds = 120;
     [SerializeField] int timerInterval = 10;
     [Header("Other Microwave Attributes")]
     [SerializeField] AudioSource turnedOnAudio;
     [SerializeField] AudioSource finishedAudio;
+    Button addButton, subtractButton, goButton;
+    TextMeshProUGUI timerDisplayText;
     int minTimeInSeconds = 0;
     int timerTimeInSeconds = 0;
     bool isTimerTicking = false;
@@ -104,10 +102,8 @@ public class MicrowaveConsumerLogic : EnergyConsumer {
         ResetTimer();
     }
 
-    void Start() {
-        timerDisplayText.SetText("00:00");
-
-        Button[] buttonList = GetComponents<Button>();
+    private void Awake() {
+        Button[] buttonList = gameObject.GetComponentsInChildren<Button>();
         foreach (Button button in buttonList) {
             switch (button.name) {
                 case "AddButton":
@@ -121,10 +117,25 @@ public class MicrowaveConsumerLogic : EnergyConsumer {
                     break;
             }
         }
-
-        // button event listeners
+        TextMeshProUGUI[] textMeshProList = gameObject.GetComponentsInChildren<TextMeshProUGUI>();
+        foreach (TextMeshProUGUI obj in textMeshProList) {
+            if (obj.name == "Display") {
+                timerDisplayText = obj;
+                break;
+            }
+        }
+        if (timerDisplayText == null) {
+            Debug.LogError("Microwave: 'Display' component not found!");
+        }
+        if (addButton == null || subtractButton == null || goButton == null) {
+            Debug.LogError("Microwave: Buttons misconfigured!");
+        }
         addButton.onClick.AddListener(OnAddButtonPress);
         subtractButton.onClick.AddListener(OnSubtractButtonPress);
         goButton.onClick.AddListener(OnGoButtonPress);
+    }
+
+    void Start() {
+        timerDisplayText.SetText("00:00");
     }
 }

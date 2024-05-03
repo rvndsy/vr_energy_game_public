@@ -2,29 +2,29 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class LightSwitchConsumerLogic : EnergyConsumer {
-    [Header("Required")]
-    [SerializeField] GameObject lightSource;
-    [SerializeField] Button hingedSwitchButton;
-    [SerializeField] GameObject hingedSwitch;
     [Header("")]
     [SerializeField] float angleOn = 7f;
     [SerializeField] float angleOff = -7f;
+    GameObject lightSource;
+    Button hingedSwitchButton;
+    GameObject hingedSwitch;
 
-/*    void TurnOn() {
-        isTurnedOn = true;
-        lightSource.SetActive(true);
-        SetSwitchState(true);
-    }*/
+    /*    void TurnOn() {
+            isTurnedOn = true;
+            lightSource.SetActive(true);
+            SetSwitchState(true);
+        }*/
 
-/*    void TurnOff() {
-        isTurnedOn = false;
-        lightSource.SetActive(false);
-        SetSwitchState(false);
-    }*/
+    /*    void TurnOff() {
+            isTurnedOn = false;
+            lightSource.SetActive(false);
+            SetSwitchState(false);
+        }*/
 
     private void SetSwitchState(bool newState) {
         if (newState) {
@@ -48,8 +48,25 @@ public class LightSwitchConsumerLogic : EnergyConsumer {
         return false;
     }*/
 
-    void Start() {
+    private void Awake() {
+        Button[] buttonList = gameObject.GetComponentsInChildren<Button>();
+        foreach (Button button in buttonList) {
+            if (button.name == "HingedSwitchButton") hingedSwitchButton = button;
+        }
+        GameObject[] gameObjList = gameObject.GetComponentsInChildren<GameObject>();
+        foreach (GameObject obj in gameObjList) {
+            switch (obj.name) {
+                case "Point Light":
+                    lightSource = obj;
+                    break;
+                case "HingedSwitch":
+                    hingedSwitch = obj;
+                    break;
+            }
+        }
         hingedSwitchButton.onClick.AddListener(OnHingedSwitchButtonClick);
+    }
+    void Start() {
         SetSwitchState(false);
     }
 
