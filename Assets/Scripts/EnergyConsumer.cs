@@ -1,8 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Rendering.UI;
-using static UnityEngine.EventSystems.EventTrigger;
 
 public class EnergyConsumer : MonoBehaviour {
 
@@ -14,22 +10,31 @@ public class EnergyConsumer : MonoBehaviour {
     [SerializeField] protected bool isTurnedOn = true;
     protected float lastPowerLevel;                        // don't need to calculate powerConsumption every Update
 
-    public float powerConsumption = 0;           // this is the actual consumption in Watts (W)
-    public float totalConsumedEnergyInKilowattHours = 0;
+    private float powerConsumption = 0;           // this is the actual consumption in Watts (W)
+    private float totalConsumedEnergyInKilowattHours = 0;
+    public float PowerConsumption {  get { return powerConsumption; } }
+    public float TotalConsumedEnergyInKilowattHours { get { return totalConsumedEnergyInKilowattHours; } }
 
     protected void SetPowerLevel(float val) {
         powerLevel = val;
     }
 
     protected void TurnOn() {
-        this.isTurnedOn = true;
-    }
-    protected void TurnOff() {
-        this.isTurnedOn = false;
+        isTurnedOn = true;
     }
 
-    float ConvertJouleToKWH(float energy) { // 1 watt = 1 joule per second
-        return energy / 3600000;
+    protected void TurnOff() {
+        isTurnedOn = false;
+    }
+
+    protected void Activate() {
+        isTurnedOn = true;
+        powerLevel = 1;
+    }
+
+    protected void Deactivate() {
+        isTurnedOn = true;
+        powerLevel = 1;
     }
 
     void Start() {
@@ -41,7 +46,7 @@ public class EnergyConsumer : MonoBehaviour {
         if (lastPowerLevel != powerLevel && isTurnedOn) {
             lastPowerLevel = powerLevel;
             powerConsumption = powerLevel * maxPowerConsumption;
-            totalConsumedEnergyInKilowattHours += ConvertJouleToKWH(powerConsumption / 50);
+            totalConsumedEnergyInKilowattHours += EnergyTracker.ConvertJouleToKWH(powerConsumption / 50);
         } else if (!isTurnedOn) {
             powerLevel = 0;
             powerConsumption = 0;

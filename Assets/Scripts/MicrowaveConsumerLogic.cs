@@ -6,16 +6,16 @@ using UnityEngine.UI;
 public class MicrowaveConsumerLogic : EnergyConsumer {
 
     [Header("Required Microwave Attributes")]
-    [SerializeField] int maxTimeInSeconds = 120;
-    [SerializeField] int timerInterval = 10;
+    [SerializeField] private int maxTimeInSeconds = 120;
+    [SerializeField] private int timerInterval = 10;
     [Header("Other Microwave Attributes")]
-    [SerializeField] AudioSource turnedOnAudio;
-    [SerializeField] AudioSource finishedAudio;
-    Button addButton, subtractButton, goButton;
-    TextMeshProUGUI timerDisplayText;
-    int minTimeInSeconds = 0;
-    int timerTimeInSeconds = 0;
-    bool isTimerTicking = false;
+    [SerializeField] private AudioSource turnedOnAudio;
+    [SerializeField] private AudioSource finishedAudio;
+    private Button addButton, subtractButton, goButton;
+    private TextMeshProUGUI timerDisplayText;
+    private int minTimeInSeconds = 0;
+    private int timerTimeInSeconds = 0;
+    private bool isTimerTicking = false;
 
     // REMOVE after making the inheritance work
     // Energy consumption specific values:
@@ -30,30 +30,19 @@ public class MicrowaveConsumerLogic : EnergyConsumer {
     // [] Press button physically?
     // [?] Door locks and snaps into place?
 
-    void UpdateTimerDisplay() {
+    private void UpdateTimerDisplay() {
         int minutes = timerTimeInSeconds / 60;
         int seconds = timerTimeInSeconds % 60;
         timerDisplayText.text = $"{minutes:00}:{seconds:00}";
     }
 
-    void ResetTimer() {
+    private void ResetTimer() {
         isTimerTicking = false;
         timerTimeInSeconds = 0;
         timerDisplayText.text = "00:00";
     }
 
-
-    /*void TurnOff() {
-        isTurnedOn = false;
-        timerDisplayText.text = "";
-    }*/
-
-/*    void TurnOn() {
-        isTurnedOn = true;
-        ResetTimer();
-    }*/
-
-    void OnSubtractButtonPress() {
+    private void OnSubtractButtonPress() {
         Debug.Log("Microwave: Subtract Button pressed!");
         if (isTimerTicking) return;
         int newTimerValue = timerTimeInSeconds - timerInterval;
@@ -63,7 +52,7 @@ public class MicrowaveConsumerLogic : EnergyConsumer {
         }
     }
 
-    void OnAddButtonPress() {
+    private void OnAddButtonPress() {
         Debug.Log("Microwave: Add Button pressed!");
         if (isTimerTicking) return;
         int newTimerValue = timerTimeInSeconds + timerInterval;
@@ -73,7 +62,7 @@ public class MicrowaveConsumerLogic : EnergyConsumer {
         }
     }
 
-    void OnGoButtonPress() {
+    private void OnGoButtonPress() {
         Debug.Log("Microwave: Go Button pressed!");
         if (!isTimerTicking) {
             isTimerTicking = true;
@@ -81,7 +70,7 @@ public class MicrowaveConsumerLogic : EnergyConsumer {
         }
     }
 
-    IEnumerator StartTickTimerDown() { // coroutine
+    private IEnumerator StartTickTimerDown() { // coroutine
         if (turnedOnAudio.loop == false) Debug.Log("(Warning) Microwave: Microwave turned on audio is not looped!");
         turnedOnAudio.Play();
 
@@ -102,7 +91,7 @@ public class MicrowaveConsumerLogic : EnergyConsumer {
         ResetTimer();
     }
 
-    private void Awake() {
+    void Awake() {
         Button[] buttonList = gameObject.GetComponentsInChildren<Button>();
         foreach (Button button in buttonList) {
             switch (button.name) {

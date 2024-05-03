@@ -7,27 +7,39 @@ public class EnergyTracker : MonoBehaviour {
     List<EnergyConsumer> energyConsumerList = new List<EnergyConsumer>();
 
     // float energyConsumedPerSecond = 0; //watt
-    float energyConsumedPerFrame = 0;
-    float totalConsumedEnergyInKilowattHours = 0;
+    private float wattagePerFrame = 0;
+    private float totalConsumedKWH = 0;
+    public float TotalConsumedKWH { get { return totalConsumedKWH; } }
+    public float WattagePerFrame { get { return wattagePerFrame; } }
 
-    float ConvertJouleToKWH(float energy) { // 1 watt = 1 joule per second
-        return energy / 3600000;
+    private float lastWattagePerFrame, lastTotalConsumedKWH;
+
+    public bool HasWattagePerFrameUpdated { get { return wattagePerFrame == lastWattagePerFrame; } }
+    public bool HasTotalConsumedKWHUpdated { get { return totalConsumedKWH == lastTotalConsumedKWH; } }
+
+    static public float ConvertJouleToKWH(float val) { // 1 watt = 1 joule per second
+        return val / 3600000;                          // 3600000 joules in 1 kWh
+    }
+
+    public void AddEnergyConsumerToTrackingList(EnergyConsumer obj) {
+        energyConsumerList.Add(obj);
     }
 
     void Start() {
-        GameObject[] energyConsumers = GameObject.FindGameObjectsWithTag("energyconsumer");
-        foreach (var obj in energyConsumers) {
-            energyConsumerList.Add(obj.GetComponent<EnergyConsumer>());
+        foreach (var obj in GameObject.FindGameObjectsWithTag("energyconsumer")) {
+            AddEnergyConsumerToTrackingList(obj.GetComponent<EnergyConsumer>());
         }
     }
 
     void FixedUpdate() {
-        energyConsumedPerFrame = 0;
+        wattagePerFrame = 0;
         foreach (var consumer in energyConsumerList) {
-            energyConsumedPerFrame += consumer.powerConsumption;
-            totalConsumedEnergyInKilowattHours += ConvertJouleToKWH(consumer.powerConsumption / 50);
+            wattagePerFrame += consumer.PowerConsumption;
+            totalConsumedKWH += ConvertJouleToKWH(consumer.PowerConsumption / 50);
         }
-/*        Debug.Log("Total power draw per second = " + energyConsumedPerFrame);
-        Debug.Log("Total power consumed = " + totalConsumedEnergyInKilowattHours);
-*/    }
+        lastWattagePerFrame = wattagePerFrame;
+        lastTotalConsumedKWH = totalConsumedKWH;
+        // Debug.Log("Total power draw per second = " + energyConsumedPerFrame);
+        // Debug.Log("Total power consumed = " + totalConsumedEnergyInKilowattHours);
+    }
 }
