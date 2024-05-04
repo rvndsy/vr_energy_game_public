@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class EnergyVisualizerUI : MonoBehaviour {
 
-        [SerializeField] private EnergyTracker energyTracker;
+    [SerializeField] private EnergyTracker energyTracker;
     // private Slider slider;
     private TextMeshProUGUI wattageDisplayText, kwhDisplayText;
 
