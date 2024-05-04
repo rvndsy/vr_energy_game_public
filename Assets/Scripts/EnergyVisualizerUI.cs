@@ -24,9 +24,6 @@ public class EnergyVisualizerUI : MonoBehaviour {
         }
     }
 
-    /*public void OnSliderChanged(float value) {
-        valueText.text = value.ToString() + "kWh";
-    }*/
     static public string FormatWattageDisplayTextString(float val) {
         return $"{val} W";
     }

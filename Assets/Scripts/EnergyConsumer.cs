@@ -33,8 +33,8 @@ public class EnergyConsumer : MonoBehaviour {
     }
 
     protected void Deactivate() {
-        isTurnedOn = true;
-        powerLevel = 1;
+        isTurnedOn = false;
+        powerLevel = 0;
     }
 
     void Start() {

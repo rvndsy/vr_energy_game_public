@@ -27,7 +27,7 @@ public class MicrowaveConsumerLogic : EnergyConsumer {
     // [-] (optional) Light inside the microwave
     // [+] Sound effect
     // [] Tactile feedback?
-    // [] Press button physically?
+    // [+] Press button physically?
     // [?] Door locks and snaps into place?
 
     private void UpdateTimerDisplay() {

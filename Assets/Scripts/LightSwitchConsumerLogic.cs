@@ -1,10 +1,4 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using TMPro;
 using UnityEngine;
-using UnityEngine.Experimental.GlobalIllumination;
 using UnityEngine.UI;
 
 public class LightSwitchConsumerLogic : EnergyConsumer {
@@ -16,37 +10,46 @@ public class LightSwitchConsumerLogic : EnergyConsumer {
 
     private Button hingedSwitchButton;
 
+    private Quaternion defaultRotation;
+
     private void SetSwitchState(bool newState) {
+        Debug.Log($"{gameObject.name} - LightSwitch: Changing state!");
+
         if (newState) Activate();
         else Deactivate();
 
-        RotateHingedSwitchToState(newState);
+        RotateHingedSwitchToAngle(newState);
         lightContainer.SetActive(newState);
     }
 
-    private void RotateHingedSwitchToState(bool state) {
-        if (state) hingedSwitch.transform.rotation = Quaternion.Euler(angleOn, 0f, 0f);
-        else hingedSwitch.transform.rotation = Quaternion.Euler(angleOff, 0f, 0f);
+    private void RotateHingedSwitchToAngle(bool state) {
+        if (state) hingedSwitch.transform.rotation = Quaternion.Euler(angleOn, defaultRotation.eulerAngles.y, defaultRotation.eulerAngles.z);
+        else hingedSwitch.transform.rotation = Quaternion.Euler(angleOff, defaultRotation.eulerAngles.y, defaultRotation.eulerAngles.z);
     }
 
     private void OnHingedSwitchButtonClick() {
         SetSwitchState(!isTurnedOn);
-        Debug.Log("LightSwitch: Button pressed!");
+        Debug.Log($"{gameObject.name} - LightSwitch: Button pressed!");
     }
 
     private void Awake() {
-        Button[] buttonList = gameObject.GetComponentsInChildren<Button>();
+        Button[] buttonList = hingedSwitch.GetComponentsInChildren<Button>();
+        if (buttonList == null) Debug.LogWarning($"{transform.parent.gameObject.name} - LightSwitch: No buttons found in children!");
         foreach (Button button in buttonList) {
-            if (button.name == "HingedSwitchButton") hingedSwitchButton = button;
+            if (button.name == "HingedSwitchButton") {
+                hingedSwitchButton = button;
+                Debug.Log($"{gameObject.name} - LightSwitch: HingedSwitchButton added");
+            }
+            Debug.Log($"{gameObject.name} - LightSwitch: {button.name} skipped");
         }
+        if (hingedSwitchButton == null) Debug.LogWarning($"{transform.parent.gameObject.name} - LightSwitch: HingedSwitchButton was not added!");
 
         hingedSwitchButton.onClick.AddListener(OnHingedSwitchButtonClick);
+
+        defaultRotation = hingedSwitch.transform.rotation;
     }
 
     void Start() {
-        SetSwitchState(false);
-    }
-
-    void Update() {
+        SetSwitchState(true);
     }
 }
