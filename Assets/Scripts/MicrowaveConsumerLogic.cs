@@ -40,10 +40,11 @@ public class MicrowaveConsumerLogic : EnergyConsumer {
         isTimerTicking = false;
         timerTimeInSeconds = 0;
         timerDisplayText.text = "00:00";
+        Debug.Log($"{gameObject.name} - Microwave: Subtract Button pressed!");
     }
 
     private void OnSubtractButtonPress() {
-        Debug.Log("Microwave: Subtract Button pressed!");
+        Debug.Log($"{gameObject.name} - Microwave: Subtract Button pressed!");
         if (isTimerTicking) return;
         int newTimerValue = timerTimeInSeconds - timerInterval;
         if (newTimerValue >= minTimeInSeconds) {
@@ -53,7 +54,7 @@ public class MicrowaveConsumerLogic : EnergyConsumer {
     }
 
     private void OnAddButtonPress() {
-        Debug.Log("Microwave: Add Button pressed!");
+        Debug.Log($"{gameObject.name} - Microwave: Add Button pressed!");
         if (isTimerTicking) return;
         int newTimerValue = timerTimeInSeconds + timerInterval;
         if (newTimerValue <= maxTimeInSeconds) {
@@ -63,7 +64,7 @@ public class MicrowaveConsumerLogic : EnergyConsumer {
     }
 
     private void OnGoButtonPress() {
-        Debug.Log("Microwave: Go Button pressed!");
+        Debug.Log($"{gameObject.name} - Microwave: Go Button pressed!");
         if (!isTimerTicking) {
             isTimerTicking = true;
             StartCoroutine(StartTickTimerDown());
@@ -71,10 +72,10 @@ public class MicrowaveConsumerLogic : EnergyConsumer {
     }
 
     private IEnumerator StartTickTimerDown() { // coroutine
-        if (turnedOnAudio.loop == false) Debug.Log("(Warning) Microwave: Microwave turned on audio is not looped!");
+        if (turnedOnAudio.loop == false) Debug.Log($"{gameObject.name} - Microwave: Microwave turned on audio is not looped!");
         turnedOnAudio.Play();
 
-        SetPowerLevel(1);
+        PowerLevel = 1;
 
         while (timerTimeInSeconds > minTimeInSeconds && isTimerTicking) {
             timerTimeInSeconds--;
@@ -86,13 +87,14 @@ public class MicrowaveConsumerLogic : EnergyConsumer {
         turnedOnAudio.Stop();
         finishedAudio.Play(0);
 
-        SetPowerLevel(0);
+        PowerLevel = 0;
 
         ResetTimer();
     }
 
     void Awake() {
         Button[] buttonList = gameObject.GetComponentsInChildren<Button>();
+        if (buttonList == null) Debug.LogError($"{gameObject.name} - Microwave: No buttons found in children!");
         foreach (Button button in buttonList) {
             switch (button.name) {
                 case "AddButton":
@@ -113,12 +115,12 @@ public class MicrowaveConsumerLogic : EnergyConsumer {
                 break;
             }
         }
-        if (timerDisplayText == null) {
-            Debug.LogError("Microwave: 'Display' component not found!");
-        }
+        if (timerDisplayText == null) Debug.LogError("Microwave: 'Display' component not found!");
+
         if (addButton == null || subtractButton == null || goButton == null) {
             Debug.LogError("Microwave: Buttons misconfigured!");
         }
+
         addButton.onClick.AddListener(OnAddButtonPress);
         subtractButton.onClick.AddListener(OnSubtractButtonPress);
         goButton.onClick.AddListener(OnGoButtonPress);

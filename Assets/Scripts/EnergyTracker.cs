@@ -9,14 +9,17 @@ public class EnergyTracker : MonoBehaviour {
 
     // float energyConsumedPerSecond = 0; //watt
     private float wattagePerFrame = 0;
-    private float totalConsumedKWH = 0;
-    public float TotalConsumedKWH { get { return totalConsumedKWH; } }
+    private float totalConsumedJoules = 0;
+    public float TotalConsumedJoules { get { return totalConsumedJoules; } }
+    public float TotalConsumedKWH { get { return ConvertJouleToKWH(lastTotalConsumedJoules); } }
     public float WattagePerFrame { get { return wattagePerFrame; } }
 
-    private float lastWattagePerFrame, lastTotalConsumedKWH;
+    private float lastWattagePerFrame, lastTotalConsumedJoules;
 
     public bool HasWattagePerFrameUpdated { get { return wattagePerFrame == lastWattagePerFrame; } }
-    public bool HasTotalConsumedKWHUpdated { get { return totalConsumedKWH == lastTotalConsumedKWH; } }
+    public bool HasTotalConsumedJoulesUpdated { get { return totalConsumedJoules == lastTotalConsumedJoules; } }
+    public bool HasTotalConsumedKWHUpdated { get { return HasTotalConsumedJoulesUpdated; } }
+
 
     static public float ConvertJouleToKWH(float val) { // 1 watt = 1 joule per second
         return val / 3600000;                          // 3600000 joules in 1 kWh
@@ -35,11 +38,11 @@ public class EnergyTracker : MonoBehaviour {
     void FixedUpdate() {
         wattagePerFrame = 0;
         foreach (var consumer in energyConsumerList) {
-            wattagePerFrame += consumer.PowerConsumption;
-            totalConsumedKWH += ConvertJouleToKWH(consumer.PowerConsumption / 50);
+            wattagePerFrame += consumer.Wattage;
+            totalConsumedJoules += consumer.Wattage / 50;
         }
         lastWattagePerFrame = wattagePerFrame;
-        lastTotalConsumedKWH = totalConsumedKWH;
+        lastTotalConsumedJoules = totalConsumedJoules;
         // Debug.Log("Total power draw per second = " + energyConsumedPerFrame);
         // Debug.Log("Total power consumed = " + totalConsumedEnergyInKilowattHours);
     }

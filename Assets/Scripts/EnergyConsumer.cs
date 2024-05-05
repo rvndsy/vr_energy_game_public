@@ -10,14 +10,11 @@ public class EnergyConsumer : MonoBehaviour {
     [SerializeField] protected bool isTurnedOn = true;
     protected float lastPowerLevel;                        // don't need to calculate powerConsumption every Update
 
-    private float powerConsumption = 0;           // this is the actual consumption in Watts (W)
-    private float totalConsumedEnergyInKilowattHours = 0;
-    public float PowerConsumption {  get { return powerConsumption; } }
-    public float TotalConsumedEnergyInKilowattHours { get { return totalConsumedEnergyInKilowattHours; } }
-
-    protected void SetPowerLevel(float val) {
-        powerLevel = val;
-    }
+    private float wattage = 0;           // this is the actual consumption in Watts (W)
+    private float totalConsumedEnergyInJoules = 0;
+    public float Wattage {  get { return wattage; } }
+    public float TotalConsumedEnergyInJoules { get { return totalConsumedEnergyInJoules; } }
+    public float PowerLevel { get {  return powerLevel; } set { powerLevel = value; } }
 
     protected void TurnOn() {
         isTurnedOn = true;
@@ -38,18 +35,18 @@ public class EnergyConsumer : MonoBehaviour {
     }
 
     void Start() {
-        hideFlags = HideFlags.HideInHierarchy;
-        hideFlags = HideFlags.HideInInspector;
+/*        hideFlags = HideFlags.HideInHierarchy;
+        hideFlags = HideFlags.HideInInspector;*/
     }
 
     void FixedUpdate() {
         if (lastPowerLevel != powerLevel && isTurnedOn) {
             lastPowerLevel = powerLevel;
-            powerConsumption = powerLevel * maxPowerConsumption;
-            totalConsumedEnergyInKilowattHours += EnergyTracker.ConvertJouleToKWH(powerConsumption / 50);
+            wattage = powerLevel * maxPowerConsumption;
+            totalConsumedEnergyInJoules += wattage / 50;
         } else if (!isTurnedOn) {
             powerLevel = 0;
-            powerConsumption = 0;
+            wattage = 0;
         }
 /*        Debug.Log("Consumer: Total Energy Consumed = " + powerConsumption);
         Debug.Log("Consumer: Power Consumption = " + powerConsumption);

@@ -12,14 +12,14 @@ public class LightSwitchConsumerLogic : EnergyConsumer {
 
     private Quaternion defaultRotation;
 
-    private void SetSwitchState(bool newState) {
-        Debug.Log($"{gameObject.name} - LightSwitch: Changing state!");
+    private void SetSwitchState(bool state) {
+        Debug.Log($"{gameObject.name} - LightSwitch: Changing state to {state}!");
 
-        if (newState) Activate();
+        if (state) Activate();
         else Deactivate();
 
-        RotateHingedSwitchToAngle(newState);
-        lightContainer.SetActive(newState);
+        RotateHingedSwitchToAngle(state);
+        lightContainer.SetActive(state);
     }
 
     private void RotateHingedSwitchToAngle(bool state) {
@@ -34,15 +34,14 @@ public class LightSwitchConsumerLogic : EnergyConsumer {
 
     private void Awake() {
         Button[] buttonList = hingedSwitch.GetComponentsInChildren<Button>();
-        if (buttonList == null) Debug.LogWarning($"{transform.parent.gameObject.name} - LightSwitch: No buttons found in children!");
+        if (buttonList == null) Debug.LogError($"{transform.parent.gameObject.name} - LightSwitch: No buttons found in children!");
         foreach (Button button in buttonList) {
             if (button.name == "HingedSwitchButton") {
                 hingedSwitchButton = button;
                 Debug.Log($"{gameObject.name} - LightSwitch: HingedSwitchButton added");
             }
-            Debug.Log($"{gameObject.name} - LightSwitch: {button.name} skipped");
         }
-        if (hingedSwitchButton == null) Debug.LogWarning($"{transform.parent.gameObject.name} - LightSwitch: HingedSwitchButton was not added!");
+        if (hingedSwitchButton == null) Debug.LogError($"{gameObject.name} - LightSwitch: HingedSwitchButton was not added!");
 
         hingedSwitchButton.onClick.AddListener(OnHingedSwitchButtonClick);
 

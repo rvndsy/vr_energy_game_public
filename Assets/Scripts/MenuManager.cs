@@ -1,16 +1,14 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class MenuManager : MonoBehaviour {
+    [Header("Main Menu")]
     [SerializeField] private GameObject mainMenu;
     [SerializeField] private Button buttonToMainMenu;
+    [Header("Settings")]
     [SerializeField] private GameObject settingsMenu;
     [SerializeField] private Button buttonToSettings;
+    [Header("Start demo scene")]
     [SerializeField] private Button startDemoButton;
 
     public void OnButtonToSettingsClicked() {
@@ -24,7 +22,7 @@ public class MenuManager : MonoBehaviour {
     }
 
     public void OnStartDemoButtonClicked() {
-        // TODO !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        SceneLoader.Load(SceneLoader.Scene.DemoScene);
     }
 
     void Start() {
