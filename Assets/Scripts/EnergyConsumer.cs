@@ -8,7 +8,7 @@ public class EnergyConsumer : MonoBehaviour {
     [SerializeField] protected float passiveWattage = 0; // used when isTurnedOn == true && powerLevel == 0
     [Header("Optional")]
     [SerializeField] protected float powerLevel = 0;     // keep this value between 0 and 1. value of 1 indicates that maxPowerConsumption == powerConsumption;
-    [SerializeField] protected bool isTurnedOn = true;
+    [SerializeField] protected bool isTurnedOn = false;
 
     protected float lastPowerLevel = -1;
 
@@ -22,29 +22,29 @@ public class EnergyConsumer : MonoBehaviour {
     public float TotalConsumedEnergyInJoules { get { return totalConsumedEnergyInJoules; } }
     public float PowerLevel { get {  return powerLevel; } set { powerLevel = value; } }
 
-    protected void TurnOn(float lvl = 0) {
+    protected virtual void TurnOn(float pwrLvl = 1) {
         isTurnedOn = true;
-        powerLevel = lvl;
-        wattagePerFixedUpdate = passiveWattage;
+        powerLevel = pwrLvl;
+        wattagePerFixedUpdate = maxWattage * powerLevel;
     }
 
-    protected void TurnOff() {
+    protected virtual void TurnOff() {
         isTurnedOn = false;
         powerLevel = 0;
         wattagePerFixedUpdate = 0;
     }
 
-    protected void TurnToIdle() {
+    protected virtual void TurnToIdle() {
         isTurnedOn = true;
         powerLevel = 0;
         wattagePerFixedUpdate = passiveWattage;
     }
 
-    protected void TurnToPower(float lvl) {
+    protected virtual void TurnToPower(float lvl) {
         TurnOn(lvl);
     }
 
-    protected void TurnToMax() {
+    protected virtual void TurnToMax() {
         isTurnedOn = true;
         powerLevel = 1;
         wattagePerFixedUpdate = maxWattage;

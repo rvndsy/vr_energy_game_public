@@ -12,14 +12,16 @@ public class LightSwitchConsumerLogic : EnergyConsumer {
 
     private Quaternion defaultRotation;
 
-    private void SetSwitchState(bool state) {
-        Debug.Log($"{gameObject.name} - LightSwitch: Changing state to {state}!");
+    protected override void TurnOff() {
+        base.TurnOff();
+        RotateHingedSwitchToAngle(false);
+        lightContainer.SetActive(false);
+    }
 
-        if (state) TurnToMax();
-        else TurnOff();
-
-        RotateHingedSwitchToAngle(state);
-        lightContainer.SetActive(state);
+    protected override void TurnOn(float pwrLvl = 1) {
+        base.TurnOn();
+        RotateHingedSwitchToAngle(true);
+        lightContainer.SetActive(true);
     }
 
     private void RotateHingedSwitchToAngle(bool state) {
@@ -28,7 +30,8 @@ public class LightSwitchConsumerLogic : EnergyConsumer {
     }
 
     private void OnHingedSwitchButtonClick() {
-        SetSwitchState(!isTurnedOn);
+        if (isTurnedOn) TurnOff();
+        else TurnOn();
         Debug.Log($"{gameObject.name} - LightSwitch: Button pressed!");
     }
 
@@ -49,6 +52,6 @@ public class LightSwitchConsumerLogic : EnergyConsumer {
     }
 
     void Start() {
-        SetSwitchState(true);
+        TurnOn();
     }
 }
