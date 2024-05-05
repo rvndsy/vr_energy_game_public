@@ -24,11 +24,12 @@ public class EnergyVisualizerUI : MonoBehaviour {
     [SerializeField] private TextMeshProUGUI kilowattHourDisplay;
     [SerializeField] private TextMeshProUGUI joulesDisplay;
 
+    private float displayedWattageValue = -1;
+    private float displayedJoulesValue = -1;
 
     private void Awake() {
         TextMeshProUGUI[] textObjList = gameObject.GetComponentsInChildren<TextMeshProUGUI>();
         foreach (TextMeshProUGUI obj in textObjList) {
-            if (obj != null) continue;
             switch (obj.name) {
                 case "WattageDisplay":
                     wattageDisplay = obj;
@@ -43,17 +44,33 @@ public class EnergyVisualizerUI : MonoBehaviour {
         }
     }
 
-    static public string FormatUnitDisplayTextString(float val, string unit, int digitsAfterPeriod) {
+    static public string FormatValueUnitDisplayString(float val, string unitStr, int digitsAfterPeriod) {
         string str = val.ToString($"F{digitsAfterPeriod}");
-        return $"{str}{unit}";
+        return $"{str}{unitStr}";
+    }
+
+    private void Start() {
+        displayedWattageValue = energyTracker.WattagePerFixedUpdate;
+        displayedJoulesValue = energyTracker.TotalConsumedJoules;
     }
 
     void FixedUpdate() {
-        if (energyTracker.HasWattagePerFrameUpdated)
-            wattageDisplay.text = FormatUnitDisplayTextString(energyTracker.WattagePerFrame, wattageAppendedText, wattageDigitsDisplayedAfterPeriod);
-        if (energyTracker.HasTotalConsumedJoulesUpdated) {
-            kilowattHourDisplay.text = FormatUnitDisplayTextString(energyTracker.TotalConsumedKWH, kwhAppendedText, kwhDigitsDisplayedAfterPeriod);
-            joulesDisplay.text = FormatUnitDisplayTextString(energyTracker.TotalConsumedJoules, joulesAppendedText, joulesDigitsDisplayedAfterPeriod);
+/*        Debug.Log($"{gameObject.name} - EnergyVisualizerUI: {energyTracker.WattagePerFixedUpdate} energyTracker.WattagePerFixedUpdate");
+        Debug.Log($"{gameObject.name} - EnergyVisualizerUI: {displayedWattageValue} displayedWattageValue");
+        Debug.Log($"{gameObject.name} - EnergyVisualizerUI: {energyTracker.TotalConsumedJoules} energyTracker.TotalConsumedJoules");
+        Debug.Log($"{gameObject.name} - EnergyVisualizerUI: {displayedJoulesValue} displayedJoulesValue");*/
+
+        if (energyTracker.WattagePerFixedUpdate != displayedWattageValue) {
+            displayedWattageValue = energyTracker.WattagePerFixedUpdate;
+            wattageDisplay.text = FormatValueUnitDisplayString(displayedWattageValue, wattageAppendedText, wattageDigitsDisplayedAfterPeriod);
+            Debug.Log($"{gameObject.name} - EnergyVisualizerUI: Updating wattageDisplay.text to {displayedWattageValue}");
+        }
+        if (energyTracker.TotalConsumedJoules != displayedJoulesValue) {
+            displayedJoulesValue = energyTracker.TotalConsumedJoules;
+            kilowattHourDisplay.text = FormatValueUnitDisplayString(energyTracker.TotalConsumedKWH, kwhAppendedText, kwhDigitsDisplayedAfterPeriod);
+            joulesDisplay.text = FormatValueUnitDisplayString(energyTracker.TotalConsumedJoules, joulesAppendedText, joulesDigitsDisplayedAfterPeriod);
+            Debug.Log($"{gameObject.name} - EnergyVisualizerUI: Updating joulesDisplay.text to {energyTracker.TotalConsumedJoules}");
+            Debug.Log($"{gameObject.name} - EnergyVisualizerUI: Updating kilowattHourDisplay.text to {energyTracker.TotalConsumedKWH}");
         }
     }
 }

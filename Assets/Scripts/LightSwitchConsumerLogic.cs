@@ -15,8 +15,8 @@ public class LightSwitchConsumerLogic : EnergyConsumer {
     private void SetSwitchState(bool state) {
         Debug.Log($"{gameObject.name} - LightSwitch: Changing state to {state}!");
 
-        if (state) Activate();
-        else Deactivate();
+        if (state) TurnToMax();
+        else TurnOff();
 
         RotateHingedSwitchToAngle(state);
         lightContainer.SetActive(state);

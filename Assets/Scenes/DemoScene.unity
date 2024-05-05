@@ -692,8 +692,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0d8d00e83846ee448ecfc064188403d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxPowerConsumption: 18
-  passiveEnergyConsumption: 0
+  maxWattage: 9
+  passiveWattage: 0
   powerLevel: 0
   isTurnedOn: 1
   angleOn: 7
@@ -863,8 +863,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1057614067}
   - {fileID: 1951700266}
+  - {fileID: 1057614067}
   - {fileID: 1127325358}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2952,8 +2952,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0d8d00e83846ee448ecfc064188403d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxPowerConsumption: 9
-  passiveEnergyConsumption: 0
+  maxWattage: 9
+  passiveWattage: 0
   powerLevel: 0
   isTurnedOn: 1
   angleOn: 7
@@ -4021,8 +4021,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0d8d00e83846ee448ecfc064188403d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxPowerConsumption: 9
-  passiveEnergyConsumption: 0
+  maxWattage: 9
+  passiveWattage: 0
   powerLevel: 0
   isTurnedOn: 1
   angleOn: 7
@@ -41497,8 +41497,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ba36483dda94f94dbd910783f63943c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxPowerConsumption: 0
-  passiveEnergyConsumption: 0
+  maxWattage: 0
+  passiveWattage: 0
   powerLevel: 0
   isTurnedOn: 1
 --- !u!1 &529916592
@@ -49930,7 +49930,7 @@ MeshCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
@@ -56543,7 +56543,7 @@ PrefabInstance:
     - target: {fileID: 8232612005001298455, guid: 3e1544edc58e88e48a9e7ea3478ea931,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.84
+      value: -1.034
       objectReference: {fileID: 0}
     - target: {fileID: 8232612005001298455, guid: 3e1544edc58e88e48a9e7ea3478ea931,
         type: 3}
@@ -56553,7 +56553,7 @@ PrefabInstance:
     - target: {fileID: 8232612005001298455, guid: 3e1544edc58e88e48a9e7ea3478ea931,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 2.19
+      value: 2.035
       objectReference: {fileID: 0}
     - target: {fileID: 8232612005001298455, guid: 3e1544edc58e88e48a9e7ea3478ea931,
         type: 3}
@@ -59572,8 +59572,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bec0c91984e717342a43c0e0cd1de72c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxPowerConsumption: 900
-  passiveEnergyConsumption: 0
+  maxWattage: 900
+  passiveWattage: 0
   powerLevel: 0
   isTurnedOn: 1
   maxTimeInSeconds: 120

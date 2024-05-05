@@ -8,42 +8,44 @@ public class EnergyTracker : MonoBehaviour {
     List<EnergyConsumer> energyConsumerList = new List<EnergyConsumer>();
 
     // float energyConsumedPerSecond = 0; //watt
-    private float wattagePerFrame = 0;
+    private float wattagePerFixedUpdate = 0;
     private float totalConsumedJoules = 0;
     public float TotalConsumedJoules { get { return totalConsumedJoules; } }
-    public float TotalConsumedKWH { get { return ConvertJouleToKWH(lastTotalConsumedJoules); } }
-    public float WattagePerFrame { get { return wattagePerFrame; } }
+    public float TotalConsumedKWH { get { return ConvertJouleToKWH(totalConsumedJoules); } }
+    public float WattagePerFixedUpdate { get { return wattagePerFixedUpdate; } }
 
-    private float lastWattagePerFrame, lastTotalConsumedJoules;
+    // private float lastWattagePerFixedUpdate = -1;
+    // private float lastTotalConsumedJoules = -1;
 
-    public bool HasWattagePerFrameUpdated { get { return wattagePerFrame == lastWattagePerFrame; } }
-    public bool HasTotalConsumedJoulesUpdated { get { return totalConsumedJoules == lastTotalConsumedJoules; } }
-    public bool HasTotalConsumedKWHUpdated { get { return HasTotalConsumedJoulesUpdated; } }
-
+    // public bool HasWattagePerFixedUpdateChanged { get { return wattagePerFixedUpdate != lastWattagePerFixedUpdate; } }
+    // public bool HasTotalConsumedJoulesChanged { get { return totalConsumedJoules != lastTotalConsumedJoules; } }
 
     static public float ConvertJouleToKWH(float val) { // 1 watt = 1 joule per second
         return val / 3600000;                          // 3600000 joules in 1 kWh
     }
 
-    public void AddEnergyConsumerToTrackingList(EnergyConsumer obj) {
+    public void AddEnergyConsumer(EnergyConsumer obj) {
         energyConsumerList.Add(obj);
     }
 
-    void Start() {
+    void Awake() {
         foreach (var obj in GameObject.FindGameObjectsWithTag("energyconsumer")) {
-            AddEnergyConsumerToTrackingList(obj.GetComponent<EnergyConsumer>());
+            AddEnergyConsumer(obj.GetComponent<EnergyConsumer>());
         }
     }
 
     void FixedUpdate() {
-        wattagePerFrame = 0;
+        wattagePerFixedUpdate = 0;
         foreach (var consumer in energyConsumerList) {
-            wattagePerFrame += consumer.Wattage;
-            totalConsumedJoules += consumer.Wattage / 50;
+            Debug.Log($"{consumer.name} - EnergyConsumer - EnergyTracker: wattagePerFixedUpdate {consumer.WattagePerFixedUpdate} -- totalConsumedJoules {consumer.WattagePerFixedUpdate}");
+            wattagePerFixedUpdate += consumer.WattagePerFixedUpdate;
+            totalConsumedJoules += consumer.WattagePerFixedUpdate / 50;
         }
-        lastWattagePerFrame = wattagePerFrame;
-        lastTotalConsumedJoules = totalConsumedJoules;
-        // Debug.Log("Total power draw per second = " + energyConsumedPerFrame);
-        // Debug.Log("Total power consumed = " + totalConsumedEnergyInKilowattHours);
+
+        // Debug.Log($"{gameObject.name} - EnergyTracker: {wattagePerFixedUpdate} wattagePerFixedUpdate");
+        // Debug.Log($"{gameObject.name} - EnergyTracker: {totalConsumedJoules} totalConsumedJoules");
+
+        // lastWattagePerFixedUpdate = wattagePerFixedUpdate;
+        // lastTotalConsumedJoules = totalConsumedJoules;
     }
 }

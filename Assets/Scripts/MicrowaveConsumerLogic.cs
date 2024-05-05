@@ -43,7 +43,7 @@ public class MicrowaveConsumerLogic : EnergyConsumer {
         Debug.Log($"{gameObject.name} - Microwave: Subtract Button pressed!");
     }
 
-    private void OnSubtractButtonPress() {
+    private void OnSubtractButtonClick() {
         Debug.Log($"{gameObject.name} - Microwave: Subtract Button pressed!");
         if (isTimerTicking) return;
         int newTimerValue = timerTimeInSeconds - timerInterval;
@@ -53,7 +53,7 @@ public class MicrowaveConsumerLogic : EnergyConsumer {
         }
     }
 
-    private void OnAddButtonPress() {
+    private void OnAddButtonClick() {
         Debug.Log($"{gameObject.name} - Microwave: Add Button pressed!");
         if (isTimerTicking) return;
         int newTimerValue = timerTimeInSeconds + timerInterval;
@@ -63,7 +63,7 @@ public class MicrowaveConsumerLogic : EnergyConsumer {
         }
     }
 
-    private void OnGoButtonPress() {
+    private void OnGoButtonClick() {
         Debug.Log($"{gameObject.name} - Microwave: Go Button pressed!");
         if (!isTimerTicking) {
             isTimerTicking = true;
@@ -75,7 +75,7 @@ public class MicrowaveConsumerLogic : EnergyConsumer {
         if (turnedOnAudio.loop == false) Debug.Log($"{gameObject.name} - Microwave: Microwave turned on audio is not looped!");
         turnedOnAudio.Play();
 
-        PowerLevel = 1;
+        TurnToMax();
 
         while (timerTimeInSeconds > minTimeInSeconds && isTimerTicking) {
             timerTimeInSeconds--;
@@ -87,7 +87,7 @@ public class MicrowaveConsumerLogic : EnergyConsumer {
         turnedOnAudio.Stop();
         finishedAudio.Play(0);
 
-        PowerLevel = 0;
+        TurnToIdle();
 
         ResetTimer();
     }
@@ -121,9 +121,9 @@ public class MicrowaveConsumerLogic : EnergyConsumer {
             Debug.LogError("Microwave: Buttons misconfigured!");
         }
 
-        addButton.onClick.AddListener(OnAddButtonPress);
-        subtractButton.onClick.AddListener(OnSubtractButtonPress);
-        goButton.onClick.AddListener(OnGoButtonPress);
+        addButton.onClick.AddListener(OnAddButtonClick);
+        subtractButton.onClick.AddListener(OnSubtractButtonClick);
+        goButton.onClick.AddListener(OnGoButtonClick);
     }
 
     void Start() {
