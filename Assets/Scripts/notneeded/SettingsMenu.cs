@@ -9,7 +9,7 @@ using UnityEngine.UI;
 public class SettingsMenu : MonoBehaviour
 {
 
-    // !rm If this one does is not used then do not submit!!!!!!!!!!!!!!!
+    // !rm If this one is not used then do not submit!!!!!!!!!!!!!!!
 
 
     [SerializeField] UxrAvatar avatar = UxrAvatar.LocalAvatar;

@@ -37,14 +37,14 @@ public class LightSwitchConsumerLogic : EnergyConsumer {
 
     private void Awake() {
         Button[] buttonList = hingedSwitch.GetComponentsInChildren<Button>();
-        if (buttonList == null) Debug.LogError($"{transform.parent.gameObject.name} - LightSwitch: No buttons found in children!");
+        if (buttonList == null) Debug.Log($"{gameObject.name} - LightSwitch: No buttons found in children!");
         foreach (Button button in buttonList) {
             if (button.name == "HingedSwitchButton") {
                 hingedSwitchButton = button;
                 Debug.Log($"{gameObject.name} - LightSwitch: HingedSwitchButton added");
             }
         }
-        if (hingedSwitchButton == null) Debug.LogError($"{gameObject.name} - LightSwitch: HingedSwitchButton was not added!");
+        if (hingedSwitchButton == null) Debug.Log($"{gameObject.name} - LightSwitch: HingedSwitchButton was not added!");
 
         hingedSwitchButton.onClick.AddListener(OnHingedSwitchButtonClick);
 

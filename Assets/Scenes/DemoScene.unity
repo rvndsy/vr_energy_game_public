@@ -57166,7 +57166,7 @@ GameObject:
   - component: {fileID: 1731443524}
   - component: {fileID: 1731443523}
   m_Layer: 5
-  m_Name: GoButton
+  m_Name: TurnOnButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -61366,7 +61366,7 @@ GameObject:
   - component: {fileID: 2045568570}
   m_Layer: 5
   m_Name: GamingScreenControls
-  m_TagString: Untagged
+  m_TagString: energyconsumer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
