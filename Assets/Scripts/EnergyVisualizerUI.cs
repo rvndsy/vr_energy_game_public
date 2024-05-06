@@ -1,9 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class EnergyVisualizerUI : MonoBehaviour {
 
@@ -18,7 +14,6 @@ public class EnergyVisualizerUI : MonoBehaviour {
     [SerializeField] private int joulesDigitsDisplayedAfterPeriod = 2;
     [SerializeField] private string joulesAppendedText = " J";
 
-    // private Slider slider;
     [Header("TextMeshPro fields to display values\nAppropriately named child objects will overwrite objects set in inspector")]
     [SerializeField] private TextMeshProUGUI wattageDisplay;
     [SerializeField] private TextMeshProUGUI kilowattHourDisplay;

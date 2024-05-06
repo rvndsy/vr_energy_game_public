@@ -6,9 +6,9 @@ using UnityEngine.UI;
 
 public class LightSwitchConsumerLogic : EnergyConsumer {
     [Header("")]
-    [SerializeField] private GameObject hingedSwitchColliderGameObject;
+    [SerializeField] private GameObject hingedSwitchCollider;
     [SerializeField] private GameObject lightSourcesContainer;
-    private Collider hingedSwitchCollider;
+    private HingedSwitch hingedSwitch;
 
     protected override void TurnOff() {
         base.TurnOff();
@@ -27,21 +27,21 @@ public class LightSwitchConsumerLogic : EnergyConsumer {
     }
 
     private void Awake() {
-        if (hingedSwitchColliderGameObject != null) {
-            hingedSwitchCollider = hingedSwitchColliderGameObject.GetComponent<Collider>();
+        if (hingedSwitchCollider != null) {
+            hingedSwitch = hingedSwitchCollider.GetComponent<HingedSwitch>();
         } else {
-            Collider[] hingedSwitchList = gameObject.GetComponentsInChildren<Collider>();
-            if (hingedSwitchList != null) hingedSwitchCollider = hingedSwitchList[0];
+            HingedSwitch[] hingedSwitchList = gameObject.GetComponentsInChildren<HingedSwitch>();
+            if (hingedSwitchList != null) hingedSwitch = hingedSwitchList[0];
         }
 
-        if (hingedSwitchCollider == null) Debug.LogWarning($"{gameObject.name} - LightSwitchConsumerLogic: No hingedSwitch added!");
-        else hingedSwitchCollider.onPress.AddListener(OnHingedSwitchButtonClick);
+        if (hingedSwitch == null) Debug.LogWarning($"{gameObject.name} - LightSwitchConsumerLogic: No hingedSwitch added!");
+        else hingedSwitch.onPress.AddListener(OnHingedSwitchButtonClick);
     }
 
     void Start() {
-        if (hingedSwitchCollider != null) {
+        if (hingedSwitch != null) {
             TurnOn();
-            hingedSwitchCollider.SetState(true);
+            hingedSwitch.SetState(true);
         } else {
             Debug.LogWarning($"{gameObject.name} - LightSwitchConsumerLogic: No hingedSwitch added!");
         }

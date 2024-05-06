@@ -9,6 +9,7 @@ public class EnergyConsumer : MonoBehaviour {
     [Header("Optional")]
     [SerializeField] protected float powerLevel = 0;     // keep this value between 0 and 1. value of 1 indicates that maxPowerConsumption == powerConsumption;
     [SerializeField] protected bool isTurnedOn = false;
+    [SerializeField] TimeManager timeManager;
 
     protected float lastPowerLevel = -1;
 
@@ -50,6 +51,10 @@ public class EnergyConsumer : MonoBehaviour {
         wattagePerFixedUpdate = maxWattage;
     }
 
+    void Awake() {
+        timeManager = FindObjectOfType<TimeManager>();
+    }
+
     void FixedUpdate() {
         if (!isTurnedOn) {
             return;
@@ -64,7 +69,7 @@ public class EnergyConsumer : MonoBehaviour {
             }
         }
 
-        totalConsumedEnergyInJoules += (wattagePerFixedUpdate / 50);
+        totalConsumedEnergyInJoules += (wattagePerFixedUpdate / 50) * timeManager.TimeMultiplier;
 
         lastPowerLevel = powerLevel;
 
