@@ -63,14 +63,14 @@ public class EnergyVisualizerUI : MonoBehaviour {
         if (energyTracker.WattagePerFixedUpdate != displayedWattageValue) {
             displayedWattageValue = energyTracker.WattagePerFixedUpdate;
             wattageDisplay.text = FormatValueUnitDisplayString(displayedWattageValue, wattageAppendedText, wattageDigitsDisplayedAfterPeriod);
-            Debug.Log($"{gameObject.name} - EnergyVisualizerUI: Updating wattageDisplay.text to {displayedWattageValue}");
+            // Debug.Log($"{gameObject.name} - EnergyVisualizerUI: Updating wattageDisplay.text to {displayedWattageValue}");
         }
         if (energyTracker.TotalConsumedJoules != displayedJoulesValue) {
             displayedJoulesValue = energyTracker.TotalConsumedJoules;
             kilowattHourDisplay.text = FormatValueUnitDisplayString(energyTracker.TotalConsumedKWH, kwhAppendedText, kwhDigitsDisplayedAfterPeriod);
             joulesDisplay.text = FormatValueUnitDisplayString(energyTracker.TotalConsumedJoules, joulesAppendedText, joulesDigitsDisplayedAfterPeriod);
-            Debug.Log($"{gameObject.name} - EnergyVisualizerUI: Updating joulesDisplay.text to {energyTracker.TotalConsumedJoules}");
-            Debug.Log($"{gameObject.name} - EnergyVisualizerUI: Updating kilowattHourDisplay.text to {energyTracker.TotalConsumedKWH}");
+            // Debug.Log($"{gameObject.name} - EnergyVisualizerUI: Updating joulesDisplay.text to {energyTracker.TotalConsumedJoules}");
+            // Debug.Log($"{gameObject.name} - EnergyVisualizerUI: Updating kilowattHourDisplay.text to {energyTracker.TotalConsumedKWH}");
         }
     }
 }

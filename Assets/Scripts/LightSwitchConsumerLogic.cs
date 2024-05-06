@@ -1,32 +1,23 @@
+using System.Collections;
+using TMPro;
 using UnityEngine;
+using UnityEngine.ProBuilder.MeshOperations;
 using UnityEngine.UI;
 
 public class LightSwitchConsumerLogic : EnergyConsumer {
     [Header("")]
-    [SerializeField] float angleOn = 7f;
-    [SerializeField] float angleOff = -7f;
-    [SerializeField] private GameObject hingedSwitch;
-    [SerializeField] private GameObject lightContainer;
-
-    private Button hingedSwitchButton;
-
-    private Quaternion defaultRotation;
+    [SerializeField] private GameObject hingedSwitchColliderGameObject;
+    [SerializeField] private GameObject lightSourcesContainer;
+    private Collider hingedSwitchCollider;
 
     protected override void TurnOff() {
         base.TurnOff();
-        RotateHingedSwitchToAngle(false);
-        lightContainer.SetActive(false);
+        lightSourcesContainer.SetActive(false);
     }
 
     protected override void TurnOn(float pwrLvl = 1) {
         base.TurnOn();
-        RotateHingedSwitchToAngle(true);
-        lightContainer.SetActive(true);
-    }
-
-    private void RotateHingedSwitchToAngle(bool state) {
-        if (state) hingedSwitch.transform.rotation = Quaternion.Euler(angleOn, defaultRotation.eulerAngles.y, defaultRotation.eulerAngles.z);
-        else hingedSwitch.transform.rotation = Quaternion.Euler(angleOff, defaultRotation.eulerAngles.y, defaultRotation.eulerAngles.z);
+        lightSourcesContainer.SetActive(true);
     }
 
     private void OnHingedSwitchButtonClick() {
@@ -36,22 +27,23 @@ public class LightSwitchConsumerLogic : EnergyConsumer {
     }
 
     private void Awake() {
-        Button[] buttonList = hingedSwitch.GetComponentsInChildren<Button>();
-        if (buttonList == null) Debug.Log($"{gameObject.name} - LightSwitch: No buttons found in children!");
-        foreach (Button button in buttonList) {
-            if (button.name == "HingedSwitchButton") {
-                hingedSwitchButton = button;
-                Debug.Log($"{gameObject.name} - LightSwitch: HingedSwitchButton added");
-            }
+        if (hingedSwitchColliderGameObject != null) {
+            hingedSwitchCollider = hingedSwitchColliderGameObject.GetComponent<Collider>();
+        } else {
+            Collider[] hingedSwitchList = gameObject.GetComponentsInChildren<Collider>();
+            if (hingedSwitchList != null) hingedSwitchCollider = hingedSwitchList[0];
         }
-        if (hingedSwitchButton == null) Debug.Log($"{gameObject.name} - LightSwitch: HingedSwitchButton was not added!");
 
-        hingedSwitchButton.onClick.AddListener(OnHingedSwitchButtonClick);
-
-        defaultRotation = hingedSwitch.transform.rotation;
+        if (hingedSwitchCollider == null) Debug.LogWarning($"{gameObject.name} - LightSwitchConsumerLogic: No hingedSwitch added!");
+        else hingedSwitchCollider.onPress.AddListener(OnHingedSwitchButtonClick);
     }
 
     void Start() {
-        TurnOn();
+        if (hingedSwitchCollider != null) {
+            TurnOn();
+            hingedSwitchCollider.SetState(true);
+        } else {
+            Debug.LogWarning($"{gameObject.name} - LightSwitchConsumerLogic: No hingedSwitch added!");
+        }
     }
 }

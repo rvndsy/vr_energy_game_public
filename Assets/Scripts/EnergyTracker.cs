@@ -30,14 +30,15 @@ public class EnergyTracker : MonoBehaviour {
 
     void Awake() {
         foreach (var obj in GameObject.FindGameObjectsWithTag("energyconsumer")) {
-            AddEnergyConsumer(obj.GetComponent<EnergyConsumer>());
+            EnergyConsumer consumerToTrack = obj.GetComponent<EnergyConsumer>();
+            if (consumerToTrack != null) AddEnergyConsumer(consumerToTrack);
         }
     }
 
     void FixedUpdate() {
         wattagePerFixedUpdate = 0;
         foreach (var consumer in energyConsumerList) {
-            Debug.Log($"{consumer.name} - EnergyConsumer - EnergyTracker: wattagePerFixedUpdate {consumer.WattagePerFixedUpdate} -- totalConsumedJoules {consumer.WattagePerFixedUpdate}");
+            // Debug.Log($"{consumer.name} - EnergyConsumer - EnergyTracker: wattagePerFixedUpdate {consumer.WattagePerFixedUpdate} -- totalConsumedJoules {consumer.WattagePerFixedUpdate}");
             wattagePerFixedUpdate += consumer.WattagePerFixedUpdate;
             totalConsumedJoules += consumer.WattagePerFixedUpdate / 50;
         }
