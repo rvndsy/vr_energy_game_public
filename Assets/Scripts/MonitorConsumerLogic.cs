@@ -13,13 +13,13 @@ public class MonitorConsumerLogic : EnergyConsumer {
         displayGameObject.SetActive(true);
     }
 
-    protected override void TurnOff() {
-        base.TurnOff();
+    protected override void TurnToIdle() {
+        base.TurnToIdle();
         displayGameObject.SetActive(false);
     }
 
     private void OnTurnOnButtonClick() {
-        if (isTurnedOn) TurnOff();
+        if (powerLevel == 1) TurnToIdle();
         else TurnOn();
         Debug.Log($"{gameObject.name} - MonitorConsumerLogic: TurnOnButton clicked!");
     }
@@ -39,6 +39,6 @@ public class MonitorConsumerLogic : EnergyConsumer {
     }
 
     void Start() {
-        TurnOff();
+        TurnToIdle();
     }
 }

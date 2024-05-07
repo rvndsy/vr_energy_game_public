@@ -5,7 +5,7 @@ public class EnergyVisualizerUI : MonoBehaviour {
 
     [SerializeField] private EnergyTracker energyTracker;
     [Header("Wattage")]
-    [SerializeField] private int wattageDigitsDisplayedAfterPeriod = 0;
+    [SerializeField] private int wattageDigitsDisplayedAfterPeriod = 1;
     [SerializeField] private string wattageAppendedText = " W";
     [Header("Kilo-Watt Hours")]
     [SerializeField] private int kwhDigitsDisplayedAfterPeriod = 6;
@@ -22,7 +22,7 @@ public class EnergyVisualizerUI : MonoBehaviour {
     private float displayedWattageValue = -1;
     private float displayedJoulesValue = -1;
 
-    private void Awake() {
+    void Awake() {
         TextMeshProUGUI[] textObjList = gameObject.GetComponentsInChildren<TextMeshProUGUI>();
         foreach (TextMeshProUGUI obj in textObjList) {
             switch (obj.name) {
@@ -44,7 +44,7 @@ public class EnergyVisualizerUI : MonoBehaviour {
         return $"{str}{unitStr}";
     }
 
-    private void Start() {
+    void Start() {
         displayedWattageValue = energyTracker.WattagePerFixedUpdate;
         displayedJoulesValue = energyTracker.TotalConsumedJoules;
     }

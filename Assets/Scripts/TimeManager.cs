@@ -4,7 +4,7 @@ using UnityEngine.Events;
 
 public class TimeManager : MonoBehaviour {
 
-    [SerializeField] private static int timeMultiplier = 1;
+    [SerializeField] private static int timeMultiplier = 1; //how many seconds pass in a real second
     [SerializeField] private static bool lockTimeUpdateRefreshRate = false;
 
     private static float secondsPassed = 0;
@@ -65,7 +65,7 @@ public class TimeManager : MonoBehaviour {
             fixedUpdateTimer = 0;
         }
 
-        Debug.Log($"{gameObject.name} - TimeManager: SECONDSPASSED = {secondsPassed}");
-        Debug.Log($"{gameObject.name} - TimeManager: fixedUpdateTimer = {fixedUpdateTimer}; timeMultiplier = {timeMultiplier}");
+        //Debug.Log($"{gameObject.name} - TimeManager: SECONDSPASSED = {secondsPassed}");
+        //Debug.Log($"{gameObject.name} - TimeManager: fixedUpdateTimer = {fixedUpdateTimer}; timeMultiplier = {timeMultiplier}");
     }
 }

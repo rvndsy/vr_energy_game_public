@@ -34,8 +34,8 @@ public class HingedSwitch : MonoBehaviour {
     void Awake() {
         defaultRotation = gameObject.transform.rotation;
         sound = GetComponent<AudioSource>();
-        if (gameObject.GetComponent<Rigidbody>() == null) {
-            Debug.LogWarning($"{gameObject.name} - HingedSwitch: No Rigidbody component found!");
-        }
+        //if (gameObject.GetComponent<Rigidbody>() == null) {
+        //    Debug.LogWarning($"{gameObject.name} - HingedSwitch: No Rigidbody component found!");
+        //}
     }
 }

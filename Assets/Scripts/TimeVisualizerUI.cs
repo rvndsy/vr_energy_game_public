@@ -27,7 +27,7 @@ public class TimeVisualizerUI : MonoBehaviour
     }
 
     void FixedUpdate() {
-        timeDisplay.text = timeManager.GetTimeString(); 
-        Debug.LogWarning($"{gameObject.name} - TimeInteractiveUI: {changeTimeMultiplierSlider.value}");
+        timeDisplay.text = $"Laiks: {timeManager.GetTimeString()}"; 
+        // Debug.LogWarning($"{gameObject.name} - TimeInteractiveUI: {changeTimeMultiplierSlider.value}");
     }
 }

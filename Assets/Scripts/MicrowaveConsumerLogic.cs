@@ -9,12 +9,12 @@ public class MicrowaveConsumerLogic : EnergyConsumer {
     [SerializeField] private int maxTimeInSeconds = 120;
     [SerializeField] private int timerInterval = 10;
     [Header("Other Microwave Attributes")]
-    [SerializeField] private AudioSource turnedOnAudio;
+    [SerializeField] private AudioSource cookingAudio;
     [SerializeField] private AudioSource finishedAudio;
     private Button addButton, subtractButton, goButton;
     private TextMeshProUGUI timerDisplayText;
     private int minTimeInSeconds = 0;
-    private int timerTimeInSeconds = 0;
+    private float timerTimeInSeconds = 0;
     private bool isTimerTicking = false;
 
     // REMOVE after making the inheritance work
@@ -28,11 +28,10 @@ public class MicrowaveConsumerLogic : EnergyConsumer {
     // [+] Sound effect
     // [] Tactile feedback?
     // [+] Press button physically?
-    // [?] Door locks and snaps into place?
 
     private void UpdateTimerDisplay() {
-        int minutes = timerTimeInSeconds / 60;
-        int seconds = timerTimeInSeconds % 60;
+        int minutes = (int)(timerTimeInSeconds / 60);
+        int seconds = (int)(timerTimeInSeconds % 60);
         timerDisplayText.text = $"{minutes:00}:{seconds:00}";
     }
 
@@ -43,10 +42,16 @@ public class MicrowaveConsumerLogic : EnergyConsumer {
         Debug.Log($"{gameObject.name} - Microwave: Subtract Button pressed!");
     }
 
+    private void RunTimer() {
+        Debug.Log($"{gameObject.name} - Microwave: Timer running  - {timerTimeInSeconds}!");
+        timerTimeInSeconds -= (int)(TimeManager.TimeUpdateRefreshRateDecimal * TimeManager.TimeMultiplier);
+        UpdateTimerDisplay();
+    }
+
     private void OnSubtractButtonClick() {
         Debug.Log($"{gameObject.name} - Microwave: Subtract Button pressed!");
         if (isTimerTicking) return;
-        int newTimerValue = timerTimeInSeconds - timerInterval;
+        float newTimerValue = timerTimeInSeconds - timerInterval;
         if (newTimerValue >= minTimeInSeconds) {
             timerTimeInSeconds = newTimerValue;
             UpdateTimerDisplay();
@@ -56,7 +61,7 @@ public class MicrowaveConsumerLogic : EnergyConsumer {
     private void OnAddButtonClick() {
         Debug.Log($"{gameObject.name} - Microwave: Add Button pressed!");
         if (isTimerTicking) return;
-        int newTimerValue = timerTimeInSeconds + timerInterval;
+        float newTimerValue = timerTimeInSeconds + timerInterval;
         if (newTimerValue <= maxTimeInSeconds) {
             timerTimeInSeconds = newTimerValue;
             UpdateTimerDisplay();
@@ -71,21 +76,22 @@ public class MicrowaveConsumerLogic : EnergyConsumer {
         }
     }
 
-    private IEnumerator StartTickTimerDown() { // coroutine
-        if (turnedOnAudio.loop == false) Debug.Log($"{gameObject.name} - Microwave: Microwave turned on audio is not looped!");
-        turnedOnAudio.Play();
+    private IEnumerator StartTickTimerDown() {
+        if (cookingAudio.loop == false) Debug.Log($"{gameObject.name} - Microwave: Microwave turned on audio is not looped!");
+        if (cookingAudio != null) cookingAudio.Play();
+
+        Debug.Log($"{gameObject.name} - Microwave: StartTickTimerDown started!");
 
         TurnToMax();
 
-        while (timerTimeInSeconds > minTimeInSeconds && isTimerTicking) {
-            timerTimeInSeconds--;
-            UpdateTimerDisplay();
-            Debug.Log("Microwave: Timer says - " + timerDisplayText.text);
-            yield return new WaitForSeconds(1f); //every 1 second
+        TimeManager.onTimerTick.AddListener(RunTimer);
+        while (timerTimeInSeconds > minTimeInSeconds) { 
+            yield return null;
         }
+        TimeManager.onTimerTick.RemoveListener(RunTimer);
 
-        turnedOnAudio.Stop();
-        finishedAudio.Play(0);
+        if (cookingAudio != null) cookingAudio.Stop();
+        if (finishedAudio != null) finishedAudio.Play();
 
         TurnToIdle();
 
@@ -127,6 +133,7 @@ public class MicrowaveConsumerLogic : EnergyConsumer {
     }
 
     void Start() {
+        TurnToIdle();
         timerDisplayText.SetText("00:00");
     }
 }
