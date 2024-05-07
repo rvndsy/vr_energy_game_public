@@ -5,12 +5,10 @@ using UnityEngine.UI;
 
 public class TimeVisualizerUI : MonoBehaviour
 {
-    [SerializeField] private List<int> timeMultiplierList = new List<int>();
-    [Header("")]
     [SerializeField] private Slider changeTimeMultiplierSlider;
     [SerializeField] private TextMeshProUGUI multiplierDisplay;
     [SerializeField] private TextMeshProUGUI timeDisplay;
-    [SerializeField] private TimeManager timeManager; //finds it automatically
+    [SerializeField] private TimeManager timeManager;
 
     public void ResetSliderValue() {
         changeTimeMultiplierSlider.value = 1;

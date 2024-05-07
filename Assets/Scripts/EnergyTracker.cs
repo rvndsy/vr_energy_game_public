@@ -40,7 +40,7 @@ public class EnergyTracker : MonoBehaviour {
         foreach (var consumer in energyConsumerList) {
             // Debug.Log($"{consumer.name} - EnergyConsumer - EnergyTracker: wattagePerFixedUpdate {consumer.WattagePerFixedUpdate} -- totalConsumedJoules {consumer.WattagePerFixedUpdate}");
             wattagePerFixedUpdate += consumer.WattagePerFixedUpdate;
-            totalConsumedJoules += consumer.WattagePerFixedUpdate / 50;
+            totalConsumedJoules += (consumer.WattagePerFixedUpdate / 50 * TimeManager.TimeMultiplier);
         }
 
         // Debug.Log($"{gameObject.name} - EnergyTracker: {wattagePerFixedUpdate} wattagePerFixedUpdate");

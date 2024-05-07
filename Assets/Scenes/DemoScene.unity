@@ -41822,7 +41822,7 @@ Transform:
   m_GameObject: {fileID: 533753879}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.1222386, y: -8.835259, z: 34.482433}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -41841,6 +41841,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeMultiplier: 1
+  lockTimeUpdateRefreshRate: 1
 --- !u!1 &533919930
 GameObject:
   m_ObjectHideFlags: 0
@@ -53874,7 +53875,7 @@ Transform:
   m_GameObject: {fileID: 1408129438}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.9401989, y: 4.823, z: 1.2929394}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -61132,7 +61133,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 414006ddeaa07f645bd99a19692795c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeMultiplierList: 
   changeTimeMultiplierSlider: {fileID: 1027602001}
   multiplierDisplay: {fileID: 855733471}
   timeDisplay: {fileID: 1310113385}

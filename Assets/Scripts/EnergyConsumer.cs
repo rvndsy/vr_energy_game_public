@@ -51,10 +51,6 @@ public class EnergyConsumer : MonoBehaviour {
         wattagePerFixedUpdate = maxWattage;
     }
 
-    void Awake() {
-        timeManager = FindObjectOfType<TimeManager>();
-    }
-
     void FixedUpdate() {
         if (!isTurnedOn) {
             return;
@@ -69,7 +65,7 @@ public class EnergyConsumer : MonoBehaviour {
             }
         }
 
-        totalConsumedEnergyInJoules += (wattagePerFixedUpdate / 50) * timeManager.TimeMultiplier;
+        totalConsumedEnergyInJoules += (wattagePerFixedUpdate / 50 * TimeManager.TimeMultiplier);
 
         lastPowerLevel = powerLevel;
 

@@ -1,14 +1,22 @@
 using System;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class TimeManager : MonoBehaviour {
 
-    [SerializeField] private int timeMultiplier = 1;
-    public int TimeMultiplier { get { return timeMultiplier;  } }
+    [SerializeField] private static int timeMultiplier = 1;
+    [SerializeField] private static bool lockTimeUpdateRefreshRate = false;
 
-    private int secondsPassed = 0;
-    private float fixedUpdateTimer = 0;
-    private float fixedDeltaTimeMultiplier = 1;
+    private static float secondsPassed = 0;
+    private static float fixedUpdateTimer = 0;
+    private static float fixedDeltaTimeMultiplier = 1;
+    private static float timeUpdateRefreshRateDecimal = 1;
+
+    public static int TimeMultiplier { get { return timeMultiplier; } }
+    public static TimeManager Instance { get; private set; } //one TimeManager instance per scene
+    public static float FixedUpdateTimer { get { return fixedUpdateTimer; } }
+
+    public UnityEvent onTimerRefresh;
 
     public void ResetTimeMultiplier() {
         timeMultiplier = 1;
@@ -22,9 +30,9 @@ public class TimeManager : MonoBehaviour {
         timeMultiplier = multiplier;
     }
 
-    public string FormatSecondsToDayTimeString(int seconds) {
+    public string FormatSecondsToDayTimeString(float seconds) {
             TimeSpan time = TimeSpan.FromSeconds(seconds);
-            return time.ToString(@"Day dd hh\:mm\:ss");
+            return time.ToString(@"d\d\ hh\:mm\:ss");
     }
 
     public string GetTimeString() {
@@ -32,15 +40,25 @@ public class TimeManager : MonoBehaviour {
     }
 
     private void UpdateSecondsPassed() {
-        secondsPassed += timeMultiplier;
+        secondsPassed += timeMultiplier * timeUpdateRefreshRateDecimal;
+    }
+
+    void Awake() {
+        if (TimeManager.Instance == null) {
+            Instance = this;
+        }
     }
 
     void FixedUpdate() {
-        fixedUpdateTimer += Time.fixedDeltaTime * fixedDeltaTimeMultiplier;
-        if (timeMultiplier > 50) fixedDeltaTimeMultiplier = 50;
-        else fixedDeltaTimeMultiplier = timeMultiplier;
+        if (timeMultiplier > 50) fixedDeltaTimeMultiplier = 50;             
+        else                     fixedDeltaTimeMultiplier = timeMultiplier;
 
-        if (fixedUpdateTimer >= 1) {
+        if (!lockTimeUpdateRefreshRate) timeUpdateRefreshRateDecimal = 1 / fixedDeltaTimeMultiplier; // updating refresh rate
+
+        fixedUpdateTimer += Time.fixedDeltaTime;
+
+        if (fixedUpdateTimer >= timeUpdateRefreshRateDecimal) {
+            onTimerRefresh.Invoke();
             UpdateSecondsPassed();
             fixedUpdateTimer = 0;
         }
