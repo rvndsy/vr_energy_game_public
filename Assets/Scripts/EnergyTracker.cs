@@ -35,13 +35,21 @@ public class EnergyTracker : MonoBehaviour {
         }
     }
 
-    void FixedUpdate() {
+    void Start() {
+        TimeManager.onTimerTick.AddListener(UpdateCycle);
+    }
+
+    private void UpdateCycle() {
         wattagePerFixedUpdate = 0;
         foreach (var consumer in energyConsumerList) {
             // Debug.Log($"{consumer.name} - EnergyConsumer - EnergyTracker: wattagePerFixedUpdate {consumer.WattagePerFixedUpdate} -- totalConsumedJoules {consumer.WattagePerFixedUpdate}");
             wattagePerFixedUpdate += consumer.WattagePerFixedUpdate;
-            totalConsumedJoules += (consumer.WattagePerFixedUpdate / 50 * TimeManager.TimeMultiplier);
+            totalConsumedJoules += (consumer.WattagePerFixedUpdate * TimeManager.TimeUpdateRefreshRateDecimal * TimeManager.TimeMultiplier);
         }
+    }
+
+    void FixedUpdate() {
+        // UpdateCycle();
 
         // Debug.Log($"{gameObject.name} - EnergyTracker: {wattagePerFixedUpdate} wattagePerFixedUpdate");
         // Debug.Log($"{gameObject.name} - EnergyTracker: {totalConsumedJoules} totalConsumedJoules");

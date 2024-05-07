@@ -13,10 +13,11 @@ public class TimeManager : MonoBehaviour {
     private static float timeUpdateRefreshRateDecimal = 1;
 
     public static int TimeMultiplier { get { return timeMultiplier; } }
+    public static float TimeUpdateRefreshRateDecimal { get { return timeUpdateRefreshRateDecimal; } }
     public static TimeManager Instance { get; private set; } //one TimeManager instance per scene
     public static float FixedUpdateTimer { get { return fixedUpdateTimer; } }
 
-    public UnityEvent onTimerRefresh;
+    public static UnityEvent onTimerTick;
 
     public void ResetTimeMultiplier() {
         timeMultiplier = 1;
@@ -44,6 +45,7 @@ public class TimeManager : MonoBehaviour {
     }
 
     void Awake() {
+        onTimerTick = new UnityEvent();
         if (TimeManager.Instance == null) {
             Instance = this;
         }
@@ -58,7 +60,7 @@ public class TimeManager : MonoBehaviour {
         fixedUpdateTimer += Time.fixedDeltaTime;
 
         if (fixedUpdateTimer >= timeUpdateRefreshRateDecimal) {
-            onTimerRefresh.Invoke();
+            onTimerTick.Invoke();
             UpdateSecondsPassed();
             fixedUpdateTimer = 0;
         }

@@ -51,7 +51,11 @@ public class EnergyConsumer : MonoBehaviour {
         wattagePerFixedUpdate = maxWattage;
     }
 
-    void FixedUpdate() {
+    void Start() {
+        TimeManager.onTimerTick.AddListener(UpdateCycle);
+    }
+
+    private void UpdateCycle() {
         if (!isTurnedOn) {
             return;
         }
@@ -65,10 +69,13 @@ public class EnergyConsumer : MonoBehaviour {
             }
         }
 
-        totalConsumedEnergyInJoules += (wattagePerFixedUpdate / 50 * TimeManager.TimeMultiplier);
+        totalConsumedEnergyInJoules += (wattagePerFixedUpdate * TimeManager.TimeUpdateRefreshRateDecimal * TimeManager.TimeMultiplier);
 
         lastPowerLevel = powerLevel;
+    }
 
+    void FixedUpdate() {
+        // UpdateCycle();
         // Debug.Log($"{gameObject.name} - EnergyConsumer: Total Energy Consumed = {totalConsumedEnergyInJoules} ");
         // Debug.Log($"{gameObject.name} - EnergyConsumer: Power Consumption =  {wattage}");
     }
