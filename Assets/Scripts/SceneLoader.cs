@@ -1,7 +1,9 @@
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
-public class SceneLoader : MonoBehaviour {
+public class SceneLoader {
+
     public enum Scene {
         MenuScene,
         DemoScene

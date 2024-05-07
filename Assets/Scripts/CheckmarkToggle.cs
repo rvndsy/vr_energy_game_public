@@ -1,16 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
+using UltimateXR.UI.UnityInputModule.Controls;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class ToggleCheckmark : MonoBehaviour {
-    [SerializeField] private Image checkmarkImage;
-    [SerializeField] private Toggle toggle;
-    [SerializeField] private bool isOn;
+/*    private Toggle toggle;
 
     void Awake() {
         toggle = gameObject.GetComponent<Toggle>();
-        if (toggle == null)         Debug.LogWarning($"{gameObject.name} - ToggleCheckmark: Script not assigned to a toggle!");
+        if (toggle == null) { 
+            Debug.LogWarning($"{gameObject.name} - ToggleCheckmark: Script not assigned to a toggle!");
+        }
 
         if (checkmarkImage == null) Debug.LogWarning($"{gameObject.name} - ToggleCheckmark: Checkmark Image not assigned!");
     }
@@ -22,6 +24,5 @@ public class ToggleCheckmark : MonoBehaviour {
 
     void Start() {
         toggle.onValueChanged.AddListener(OnToggleValueChanged);
-        //checkmarkImage.gameObject.SetActive(toggle.isOn);
-    }
+    }*/
 }
