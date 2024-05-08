@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -21,19 +19,19 @@ public class MonitorConsumerLogic : EnergyConsumer {
     private void OnTurnOnButtonClick() {
         if (powerLevel == 1) TurnToIdle();
         else TurnOn();
-        Debug.Log($"{gameObject.name} - MonitorConsumerLogic: TurnOnButton clicked!");
+        // Debug.Log($"{gameObject.name} - MonitorConsumerLogic: TurnOnButton clicked!");
     }
 
     private void Awake() {
         Button[] buttonList = gameObject.GetComponentsInChildren<Button>();
-        if (buttonList == null) Debug.Log($"{gameObject.name} - MonitorConsumerLogic: No buttons found in children!");
+        if (buttonList == null) Debug.LogWarning($"{gameObject.name} - MonitorConsumerLogic: No buttons found in children!");
         foreach (Button button in buttonList) {
             if (button.name == "TurnOnButton") {
                 turnOnButton = button;
-                Debug.Log($"{gameObject.name} - MonitorConsumerLogic: turnOnButton added");
+                // Debug.Log($"{gameObject.name} - MonitorConsumerLogic: turnOnButton added");
             }
         }
-        if (turnOnButton == null) Debug.Log($"{gameObject.name} - MonitorConsumerLogic: turnOnButton was not added!");
+        if (turnOnButton == null) Debug.LogWarning($"{gameObject.name} - MonitorConsumerLogic: turnOnButton was not added!");
 
         turnOnButton.onClick.AddListener(OnTurnOnButtonClick);
     }

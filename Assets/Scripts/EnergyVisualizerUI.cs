@@ -50,11 +50,6 @@ public class EnergyVisualizerUI : MonoBehaviour {
     }
 
     void FixedUpdate() {
-/*        Debug.Log($"{gameObject.name} - EnergyVisualizerUI: {energyTracker.WattagePerFixedUpdate} energyTracker.WattagePerFixedUpdate");
-        Debug.Log($"{gameObject.name} - EnergyVisualizerUI: {displayedWattageValue} displayedWattageValue");
-        Debug.Log($"{gameObject.name} - EnergyVisualizerUI: {energyTracker.TotalConsumedJoules} energyTracker.TotalConsumedJoules");
-        Debug.Log($"{gameObject.name} - EnergyVisualizerUI: {displayedJoulesValue} displayedJoulesValue");*/
-
         if (energyTracker.WattagePerFixedUpdate != displayedWattageValue) {
             displayedWattageValue = energyTracker.WattagePerFixedUpdate;
             wattageDisplay.text = FormatValueUnitDisplayString(displayedWattageValue, wattageAppendedText, wattageDigitsDisplayedAfterPeriod);

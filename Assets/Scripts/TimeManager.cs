@@ -9,11 +9,11 @@ public class TimeManager : MonoBehaviour {
 
     private static float secondsPassed = 0;
     private static float fixedUpdateTimer = 0;
-    private static float fixedDeltaTimeMultiplier = 1;
-    private static float timeUpdateRefreshRateDecimal = 1;
+    // private static float fixedDeltaTimeMultiplier = 1;
+    private static float timeUpdateRefreshRatePeriod = 1;
 
     public static int TimeMultiplier { get { return timeMultiplier; } }
-    public static float TimeUpdateRefreshRateDecimal { get { return timeUpdateRefreshRateDecimal; } }
+    public static float TimeUpdateRefreshRatePeriod { get { return timeUpdateRefreshRatePeriod; } }
     public static TimeManager Instance { get; private set; } //one TimeManager instance per scene
     public static float FixedUpdateTimer { get { return fixedUpdateTimer; } }
 
@@ -24,10 +24,6 @@ public class TimeManager : MonoBehaviour {
     }
 
     public void SetTimeMultiplier(int multiplier) {
-        if (multiplier > 1000) {
-            Debug.LogWarning($"{gameObject.name} - TimeManager: Something tried to change timeMultiplier to greater than 1000!");
-            return;
-        }
         timeMultiplier = multiplier;
     }
 
@@ -41,7 +37,7 @@ public class TimeManager : MonoBehaviour {
     }
 
     private void UpdateSecondsPassed() {
-        secondsPassed += timeMultiplier * timeUpdateRefreshRateDecimal;
+        secondsPassed += timeMultiplier * timeUpdateRefreshRatePeriod;
     }
 
     void Awake() {
@@ -52,20 +48,22 @@ public class TimeManager : MonoBehaviour {
     }
 
     void FixedUpdate() {
-        if (timeMultiplier > 50) fixedDeltaTimeMultiplier = 50;             
-        else                     fixedDeltaTimeMultiplier = timeMultiplier;
+        // fixedDeltaTimeMultiplier = timeMultiplier > 50 ? 50 : timeMultiplier; // fixedDeltaTimeMultiplier cannot exceed 50
+        // fixedDeltaTimeMultiplier can potentially be used to enable much greater timeMultiplier values at lower calculation accuracy
+        //      to use fixedDeltaTimeMultiplier replace timeMultiplier in the !lock- statement below with fixedDeltaTimeMultiplier, uncomment the two statements where it is defined
+        //      and multiply any value which changes linearly over time and subscribes to onTimerTick by (TimeManager.TimeMultiplier * TimeManager.TimeUpdateRefreshRatePeriod)
+        //      ex. totalConsumedJoules += (consumer.WattagePerFixedUpdate * TimeManager.TimeMultiplier * TimeManager.TimeUpdateRefreshRatePeriod);
 
-        if (!lockTimeUpdateRefreshRate) timeUpdateRefreshRateDecimal = 1 / fixedDeltaTimeMultiplier; // updating refresh rate
+        if (!lockTimeUpdateRefreshRate) timeUpdateRefreshRatePeriod = 1f / timeMultiplier; // updating refresh rate
 
         fixedUpdateTimer += Time.fixedDeltaTime;
 
-        if (fixedUpdateTimer >= timeUpdateRefreshRateDecimal) {
+        if (fixedUpdateTimer >= timeUpdateRefreshRatePeriod) {
             onTimerTick.Invoke();
             UpdateSecondsPassed();
             fixedUpdateTimer = 0;
         }
-
-        //Debug.Log($"{gameObject.name} - TimeManager: SECONDSPASSED = {secondsPassed}");
+        Debug.Log($"{gameObject.name} - TimeManager: secondsPassed = {secondsPassed}, timeMultiplier = {timeMultiplier}, timeUpdateRefreshRatePeriod = {1 / timeMultiplier}");
         //Debug.Log($"{gameObject.name} - TimeManager: fixedUpdateTimer = {fixedUpdateTimer}; timeMultiplier = {timeMultiplier}");
     }
 }

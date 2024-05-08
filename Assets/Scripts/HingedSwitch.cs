@@ -15,7 +15,7 @@ public class HingedSwitch : MonoBehaviour {
     private Quaternion defaultRotation;
 
     public void OnTriggerEnter() {
-        Debug.Log($"{gameObject.name} - HingedSwitch: OnTriggerEnter executed");
+        // Debug.Log($"{gameObject.name} - HingedSwitch: OnTriggerEnter executed");
         SetState(!isFlipped);
         onPress.Invoke();
         if (sound != null) sound.Play();
@@ -34,8 +34,5 @@ public class HingedSwitch : MonoBehaviour {
     void Awake() {
         defaultRotation = gameObject.transform.rotation;
         sound = GetComponent<AudioSource>();
-        //if (gameObject.GetComponent<Rigidbody>() == null) {
-        //    Debug.LogWarning($"{gameObject.name} - HingedSwitch: No Rigidbody component found!");
-        //}
     }
 }

@@ -28,8 +28,9 @@ public class SettingsManager : MonoBehaviour
         UxrSmoothLocomotion smoothLoco = avatar.GetComponent<UxrSmoothLocomotion>();
         if (smoothLoco != null) {
             smoothLoco.enabled = !state;
+        } else {
+            Debug.LogWarning($"{gameObject.name} - SettingsManager: No UxrTeleportLocomotion assigned in children!");
         }
-        if (smoothLoco == null) Debug.LogWarning($"{gameObject.name} - SettingsManager: No UxrTeleportLocomotion assigned in children!");
 
         UxrTeleportLocomotion[] teleportLocoList = avatar.GetComponentsInChildren<UxrTeleportLocomotion>();
         foreach (UxrTeleportLocomotion teleportLoco in teleportLocoList) {

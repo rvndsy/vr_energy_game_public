@@ -1,4 +1,3 @@
-using System.Net;
 using UnityEngine;
 
 public class EnergyConsumer : MonoBehaviour {
@@ -15,9 +14,6 @@ public class EnergyConsumer : MonoBehaviour {
 
     protected float wattagePerFixedUpdate = 0;           // this is the actual consumption in Watts (W)
     protected float totalConsumedEnergyInJoules = 0;
-
-    // public bool HasWattagePerFixedUpdateChanged { get { return wattagePerFixedUpdate != lastWattagePerFixedUpdate; } }
-    // public bool HasPowerLevelChanged { get { return powerLevel != lastPowerLevel; } }
 
     public float WattagePerFixedUpdate {  get { return wattagePerFixedUpdate; } }
     public float TotalConsumedEnergyInJoules { get { return totalConsumedEnergyInJoules; } }
@@ -69,13 +65,12 @@ public class EnergyConsumer : MonoBehaviour {
             }
         }
 
-        totalConsumedEnergyInJoules += (wattagePerFixedUpdate * TimeManager.TimeUpdateRefreshRateDecimal * TimeManager.TimeMultiplier);
+        totalConsumedEnergyInJoules += (wattagePerFixedUpdate);
 
         lastPowerLevel = powerLevel;
     }
 
     void FixedUpdate() {
-        // UpdateCycle();
         // Debug.Log($"{gameObject.name} - EnergyConsumer: Total Energy Consumed = {totalConsumedEnergyInJoules} ");
         // Debug.Log($"{gameObject.name} - EnergyConsumer: Power Consumption =  {wattage}");
     }

@@ -23,10 +23,10 @@ public class LightSwitchConsumerLogic : EnergyConsumer {
     private void OnHingedSwitchButtonClick() {
         if (isTurnedOn) TurnOff();
         else TurnOn();
-        Debug.Log($"{gameObject.name} - LightSwitch: Button pressed!");
+        // Debug.Log($"{gameObject.name} - LightSwitch: Button pressed!");
     }
 
-    private void Awake() {
+    void Awake() {
         if (hingedSwitchCollider != null) {
             hingedSwitch = hingedSwitchCollider.GetComponent<HingedSwitch>();
         } else {
@@ -42,8 +42,6 @@ public class LightSwitchConsumerLogic : EnergyConsumer {
         if (hingedSwitch != null) {
             TurnOn();
             hingedSwitch.SetState(true);
-        } else {
-            Debug.LogWarning($"{gameObject.name} - LightSwitchConsumerLogic: No hingedSwitch added!");
         }
     }
 }

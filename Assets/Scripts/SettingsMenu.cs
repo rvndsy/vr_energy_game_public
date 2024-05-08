@@ -1,7 +1,5 @@
-using UltimateXR.Avatar;
 using UnityEngine;
 using UnityEngine.UI;
-using Valve.VR.InteractionSystem;
 
 public class SettingsMenu : MonoBehaviour
 {
@@ -16,6 +14,6 @@ public class SettingsMenu : MonoBehaviour
     }
 
     void FixedUpdate() {
-        Debug.Log($"{gameObject.name} - SettingsMenu: PlayerPrefs 'Locomotion' set to {PlayerPrefs.GetInt("Locomotion")}");
+        // Debug.Log($"{gameObject.name} - SettingsMenu: PlayerPrefs 'Locomotion' set to {PlayerPrefs.GetInt("Locomotion")}");
     }
 }
