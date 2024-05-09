@@ -26,6 +26,10 @@
 # Visual Studio cache directory
 .vs/
 
+# Visual Studio Code files
+.vscode/
+vsconfig
+
 # Gradle cache directory
 .gradle/
 
@@ -57,7 +61,7 @@ sysinfo.txt
 
 # Builds
 *.apk
-Apks/*
+Apks/
 *.aab
 *.unitypackage
 *.app
