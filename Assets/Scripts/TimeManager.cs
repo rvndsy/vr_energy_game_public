@@ -51,7 +51,7 @@ public class TimeManager : MonoBehaviour {
         // fixedDeltaTimeMultiplier = timeMultiplier > 50 ? 50 : timeMultiplier; // fixedDeltaTimeMultiplier cannot exceed 50
         // fixedDeltaTimeMultiplier can potentially be used to enable much greater timeMultiplier values at lower calculation accuracy
         //      to use fixedDeltaTimeMultiplier replace timeMultiplier in the !lock- statement below with fixedDeltaTimeMultiplier, uncomment the two statements where it is defined
-        //      and multiply any value which changes linearly over time and subscribes to onTimerTick by (TimeManager.TimeMultiplier * TimeManager.TimeUpdateRefreshRatePeriod)
+        //      multiply any value which changes linearly over time in other scripts and subscribes to onTimerTick by (TimeManager.TimeMultiplier * TimeManager.TimeUpdateRefreshRatePeriod)
         //      ex. totalConsumedJoules += (consumer.WattagePerFixedUpdate * TimeManager.TimeMultiplier * TimeManager.TimeUpdateRefreshRatePeriod);
 
         if (!lockTimeUpdateRefreshRate) timeUpdateRefreshRatePeriod = 1f / timeMultiplier; // updating refresh rate
@@ -63,7 +63,7 @@ public class TimeManager : MonoBehaviour {
             UpdateSecondsPassed();
             fixedUpdateTimer = 0;
         }
-        Debug.Log($"{gameObject.name} - TimeManager: secondsPassed = {secondsPassed}, timeMultiplier = {timeMultiplier}, timeUpdateRefreshRatePeriod = {1 / timeMultiplier}");
+        // Debug.Log($"{gameObject.name} - TimeManager: secondsPassed = {secondsPassed}, timeMultiplier = {timeMultiplier}, timeUpdateRefreshRatePeriod = {1 / timeMultiplier}");
         //Debug.Log($"{gameObject.name} - TimeManager: fixedUpdateTimer = {fixedUpdateTimer}; timeMultiplier = {timeMultiplier}");
     }
 }

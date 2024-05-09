@@ -260,7 +260,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -893,10 +893,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0d8d00e83846ee448ecfc064188403d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxWattage: 9
+  maxWattage: 13
   passiveWattage: 0
   powerLevel: 0
-  isTurnedOn: 0
+  isTurnedOn: 1
   timeManager: {fileID: 0}
   hingedSwitchCollider: {fileID: 991463789}
   lightSourcesContainer: {fileID: 1000479646}
@@ -2886,7 +2886,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0d8d00e83846ee448ecfc064188403d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxWattage: 9
+  maxWattage: 13
   passiveWattage: 0
   powerLevel: 0
   isTurnedOn: 1
@@ -4037,7 +4037,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0d8d00e83846ee448ecfc064188403d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxWattage: 9
+  maxWattage: 13
   passiveWattage: 0
   powerLevel: 0
   isTurnedOn: 1
@@ -41516,7 +41516,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -41872,7 +41872,7 @@ Transform:
   m_GameObject: {fileID: 590410942}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.7071057, z: -0, w: -0.70710796}
-  m_LocalPosition: {x: 9.5706, y: 3.668, z: -1.382}
+  m_LocalPosition: {x: 9.5706, y: 3.871, z: -1.382}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -48684,7 +48684,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -55529,7 +55529,7 @@ Transform:
   m_GameObject: {fileID: 1645822593}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.000000059604638, z: -0, w: -1}
-  m_LocalPosition: {x: 12.2543, y: 3.668, z: -4.0525}
+  m_LocalPosition: {x: 12.2543, y: 3.871, z: -4.0525}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -59204,7 +59204,7 @@ Transform:
   m_GameObject: {fileID: 1883393577}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -1, z: -0, w: -0.0000027865171}
-  m_LocalPosition: {x: 10.169, y: 3.668, z: -4.2118}
+  m_LocalPosition: {x: 10.169, y: 3.871, z: -4.2118}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -59502,7 +59502,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 736a21525c3dcfd48a7368b7f0bc874b, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 58a589aa289519d4e87ca2c45bfdeb17, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -59548,7 +59548,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -59601,7 +59601,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxWattage: 900
-  passiveWattage: 5
+  passiveWattage: 0
   powerLevel: 0
   isTurnedOn: 1
   timeManager: {fileID: 0}
@@ -59609,6 +59609,7 @@ MonoBehaviour:
   timerInterval: 10
   cookingAudio: {fileID: 1914447165}
   finishedAudio: {fileID: 1914447171}
+  buttonPressAudio: {fileID: 1914447171}
 --- !u!82 &1914447171
 AudioSource:
   m_ObjectHideFlags: 0
@@ -59619,9 +59620,9 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
-  m_Volume: 1
+  m_audioClip: {fileID: 8300000, guid: ab42215ef9e2f84498f24f0e27f1f1d1, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 0.6
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -59630,9 +59631,9 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 10
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 2
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -59640,23 +59641,50 @@ AudioSource:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
+      time: 0.058465578
+      value: 0.99765015
+      inSlope: -10.0039835
+      outSlope: -10.0039835
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.16646118
+      value: 0.5187988
+      inSlope: -2.5009959
+      outSlope: -2.5009959
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.4
+      value: 0.25
+      inSlope: -0.62524897
+      outSlope: -0.62524897
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.8
+      value: 0.125
+      inSlope: -0.15631224
+      outSlope: -0.15631224
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
     - serializedVersion: 3
       time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
+      value: 0.1
+      inSlope: -0.10003988
+      outSlope: -0.10003988
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
+      inWeight: 0
+      outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
@@ -59665,7 +59693,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -60774,7 +60802,6 @@ GameObject:
   - component: {fileID: 2045568569}
   - component: {fileID: 2045568568}
   - component: {fileID: 2045568567}
-  - component: {fileID: 2045568570}
   m_Layer: 5
   m_Name: GamingScreenControls
   m_TagString: energyconsumer
@@ -60866,25 +60893,6 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
---- !u!114 &2045568570
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2045568565}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc7246c20be399c4388532236142673a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxWattage: 48
-  passiveWattage: 0
-  powerLevel: 0
-  isTurnedOn: 1
-  timeManager: {fileID: 0}
-  turnOnButton: {fileID: 1731443523}
-  displayGameObject: {fileID: 1269413429}
 --- !u!1 &2050548617
 GameObject:
   m_ObjectHideFlags: 0
@@ -60992,6 +61000,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Gaming Screen
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 61d2840a32922d642b60bd582e7d4554,
+        type: 3}
+      propertyPath: m_TagString
+      value: energyconsumer
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -61008,6 +61021,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 2100876104}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 61d2840a32922d642b60bd582e7d4554,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2100876107}
   m_SourcePrefab: {fileID: 100100000, guid: 61d2840a32922d642b60bd582e7d4554, type: 3}
 --- !u!1 &2100876103 stripped
 GameObject:
@@ -61070,6 +61087,25 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2100876102}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2100876107
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2100876103}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc7246c20be399c4388532236142673a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxWattage: 24
+  passiveWattage: 0
+  powerLevel: 0
+  isTurnedOn: 0
+  timeManager: {fileID: 0}
+  turnOnButton: {fileID: 1731443523}
+  displayGameObject: {fileID: 1269413429}
 --- !u!1 &2122997246
 GameObject:
   m_ObjectHideFlags: 0

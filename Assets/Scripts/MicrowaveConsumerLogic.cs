@@ -11,6 +11,7 @@ public class MicrowaveConsumerLogic : EnergyConsumer {
     [Header("Other Microwave Attributes")]
     [SerializeField] private AudioSource cookingAudio;
     [SerializeField] private AudioSource finishedAudio;
+    [SerializeField] private AudioSource buttonPressAudio;
     private Button addButton, subtractButton, goButton;
     private TextMeshProUGUI timerDisplayText;
     private int minTimeInSeconds = 0;
@@ -39,6 +40,7 @@ public class MicrowaveConsumerLogic : EnergyConsumer {
     private void OnSubtractButtonClick() {
         // Debug.Log($"{gameObject.name} - Microwave: Subtract Button pressed!");
         if (isTimerTicking) return;
+        if (buttonPressAudio != null) buttonPressAudio.Play();
         float newTimerValue = timerTimeInSeconds - timerInterval;
         if (newTimerValue >= minTimeInSeconds) {
             timerTimeInSeconds = newTimerValue;
@@ -49,6 +51,7 @@ public class MicrowaveConsumerLogic : EnergyConsumer {
     private void OnAddButtonClick() {
         // Debug.Log($"{gameObject.name} - Microwave: Add Button pressed!");
         if (isTimerTicking) return;
+        if (buttonPressAudio != null) buttonPressAudio.Play();
         float newTimerValue = timerTimeInSeconds + timerInterval;
         if (newTimerValue <= maxTimeInSeconds) {
             timerTimeInSeconds = newTimerValue;
@@ -59,6 +62,7 @@ public class MicrowaveConsumerLogic : EnergyConsumer {
     private void OnGoButtonClick() {
         // Debug.Log($"{gameObject.name} - Microwave: Go Button pressed!");
         if (!isTimerTicking) {
+            if (buttonPressAudio != null) buttonPressAudio.Play();
             isTimerTicking = true;
             StartCoroutine(StartTickTimerDown());
         }

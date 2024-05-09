@@ -37,6 +37,7 @@ public class MonitorConsumerLogic : EnergyConsumer {
     }
 
     void Start() {
-        TurnToIdle();
+        if (isTurnedOn) TurnOn();
+        else            TurnToIdle();
     }
 }

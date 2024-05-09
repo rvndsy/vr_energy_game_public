@@ -40,8 +40,13 @@ public class LightSwitchConsumerLogic : EnergyConsumer {
 
     void Start() {
         if (hingedSwitch != null) {
-            TurnOn();
-            hingedSwitch.SetState(true);
+            if (isTurnedOn) {
+                TurnOn();
+                hingedSwitch.SetState(true);
+            } else {
+                TurnOff();
+                hingedSwitch.SetState(false);
+            }
         }
     }
 }

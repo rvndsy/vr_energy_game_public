@@ -43338,7 +43338,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 518431131}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 88631d58f15603847b5bde7ae5865d1f, type: 3}
   m_Name: 
@@ -43448,7 +43448,7 @@ MonoBehaviour:
       _fallbackClipType: 6
       _fallbackAmplitude: 0.2
       _fallbackDurationSeconds: -1
-    _audioClip: {fileID: 0}
+    _audioClip: {fileID: 8300000, guid: d7082433743716143b62b5e315bfdb9d, type: 3}
     _audioVolume: 1
     _useAudio3D: 1
   _feedbackOnRelease:
@@ -43479,9 +43479,9 @@ MonoBehaviour:
   _enableWhenSelected: []
   _enableWhenNotSelected: []
   _textColorChanges: []
-  _audioToggleOn: {fileID: 0}
-  _audioToggleOff: {fileID: 0}
-  _audioToggleOnVolume: 1
+  _audioToggleOn: {fileID: 8300000, guid: 38a5b78ee824de64abf8e053a03a6c10, type: 3}
+  _audioToggleOff: {fileID: 8300000, guid: 38a5b78ee824de64abf8e053a03a6c10, type: 3}
+  _audioToggleOnVolume: 0.5
   _audioToggleOffVolume: 1
 --- !u!1 &519887483
 GameObject:
@@ -48760,7 +48760,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &847371815
 RectTransform:
   m_ObjectHideFlags: 0
@@ -63377,7 +63377,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2035829284
 RectTransform:
   m_ObjectHideFlags: 0
