@@ -13,7 +13,7 @@ public class SettingsManager : MonoBehaviour
         return false;
     }
 
-    public static void SetLocomotionSettingIsTeleport(bool isTeleport) {
+    public static void WriteLocomotionSettingIsTeleport(bool isTeleport) {
         int val = isTeleport ? 1 : 0;
         PlayerPrefs.SetInt("Locomotion", val);
     }

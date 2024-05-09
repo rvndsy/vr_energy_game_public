@@ -10,7 +10,7 @@ public class SettingsMenu : MonoBehaviour
     }
 
     void Start() {
-        toggleLocomotionSetting.onValueChanged.AddListener(SettingsManager.SetLocomotionSettingIsTeleport);
+        toggleLocomotionSetting.onValueChanged.AddListener(SettingsManager.WriteLocomotionSettingIsTeleport);
     }
 
     void FixedUpdate() {
