@@ -3,13 +3,12 @@ using UnityEngine;
 using UnityEngine.Events;
 
 public class TimeManager : MonoBehaviour {
-
-    [SerializeField] private static int timeMultiplier = 1; //how many seconds pass in a real second
-    [SerializeField] private static bool lockTimeUpdateRefreshRate = false;
+   
+    [SerializeField] private bool lockTimeUpdateRefreshRate = false;
+    private static int timeMultiplier = 1; //how many seconds pass in a real second
 
     private static float secondsPassed = 0;
     private static float fixedUpdateTimer = 0;
-    // private static float fixedDeltaTimeMultiplier = 1;
     private static float timeUpdateRefreshRatePeriod = 1;
 
     public static int TimeMultiplier { get { return timeMultiplier; } }
@@ -48,12 +47,6 @@ public class TimeManager : MonoBehaviour {
     }
 
     void FixedUpdate() {
-        // fixedDeltaTimeMultiplier = timeMultiplier > 50 ? 50 : timeMultiplier; // fixedDeltaTimeMultiplier cannot exceed 50
-        // fixedDeltaTimeMultiplier can potentially be used to enable much greater timeMultiplier values at lower calculation accuracy
-        //      to use fixedDeltaTimeMultiplier replace timeMultiplier in the !lock- statement below with fixedDeltaTimeMultiplier, uncomment the two statements where it is defined
-        //      multiply any value which changes linearly over time in other scripts and subscribes to onTimerTick by (TimeManager.TimeMultiplier * TimeManager.TimeUpdateRefreshRatePeriod)
-        //      ex. totalConsumedJoules += (consumer.WattagePerFixedUpdate * TimeManager.TimeMultiplier * TimeManager.TimeUpdateRefreshRatePeriod);
-
         if (!lockTimeUpdateRefreshRate) timeUpdateRefreshRatePeriod = 1f / timeMultiplier; // updating refresh rate
 
         fixedUpdateTimer += Time.fixedDeltaTime;

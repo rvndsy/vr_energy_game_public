@@ -33,7 +33,7 @@ public class MicrowaveConsumerLogic : EnergyConsumer {
 
     private void RunTimer() {
         // Debug.Log($"{gameObject.name} - Microwave: Timer running  - {timerTimeInSeconds}!");
-        timerTimeInSeconds -= (int)(TimeManager.TimeUpdateRefreshRatePeriod * TimeManager.TimeMultiplier);
+        timerTimeInSeconds--;
         UpdateTimerDisplay();
     }
 
